@@ -1,0 +1,7 @@
+node_modules
+platforms
+.DS_Store
+lib
+npm-debug.log
+# Ignore css files, since they are just transpiled versions of the app's less files.
+*.css
