@@ -9,6 +9,12 @@
       "version": "2.5.0"
     }
   },
+  "scripts": {
+    "reinstall-platforms": "rm -rf platforms && tns install",
+    "install-engine": "tns plugin install ../nativescript-voxophone-engine/",
+    "remove-engine": "tns plugin remove nativescript-voxophone-engine",
+    "reinstall-engine": "npm run remove-engine && npm run install-engine && npm run reinstall-platforms"
+  },
   "dependencies": {
     "nativescript-theme-core": "~1.0.2",
     "tns-core-modules": "2.5.2"
