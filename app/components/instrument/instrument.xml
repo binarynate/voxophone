@@ -1,0 +1,3 @@
+<StackLayout loaded="onLoaded">
+    <Label text="(instrument)"/>
+</StackLayout>

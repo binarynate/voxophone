@@ -1,4 +1,6 @@
-<StackLayout loaded="onLoaded" class="instrument-picker">
+<StackLayout loaded="onLoaded" class="instrument-picker"
+             xmlns:i="components/instrument">
+
     <Label text="The instrument picker will go here."/>
 
     <ScrollView orientation="horizontal">
@@ -6,6 +8,8 @@
             <Label text="Item 1"/>
             <Label text="Item 2"/>
             <Label text="Item 3"/>
+            <i:instrument/>
+
             <Label text="Item 3"/>
             <Label text="Item 3"/>
             <Label text="Item 3"/>
