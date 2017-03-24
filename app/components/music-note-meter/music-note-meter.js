@@ -5,3 +5,5 @@ class MusicNoteMeter extends Component {
 
 
 }
+
+MusicNoteMeter.export(exports);
