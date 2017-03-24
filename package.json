@@ -42,6 +42,7 @@
   "devDependencies": {
     "jshint": "^2.9.4",
     "nativescript-dev-android-snapshot": "^0.*.*",
-    "nativescript-dev-babel": "^0.1.6"
+    "nativescript-dev-babel": "^0.1.6",
+    "nativescript-dev-less": "0.0.10"
   }
 }
