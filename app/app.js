@@ -1,13 +1,19 @@
-/*
-In NativeScript, the app.js file is the entry point to your application.
-You can use this file to perform app-level initialization, but the primary
-purpose of the file is to pass control to the app’s first module.
-*/
+import { Logger } from 'nativescript-utilities';
+import VoxophoneEngine from 'nativescript-voxophone-engine';
+import application from 'application';
 
-require("./bundle-config");
-var application = require("application");
+// Build the app's dependencies
+let appDependencies = {
+    logger: new Logger(),
+    voxophone: new VoxophoneEngine()
+};
 
-application.start({ moduleName: "main-page" });
+application.start({
+    moduleName: 'components/performance-view/performance-view',
+    context: {
+        appDependencies
+    }
+});
 
 /*
 Do not place any code after the application has been started as it will not
