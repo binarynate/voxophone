@@ -1,5 +1,5 @@
 <Page loaded="onLoaded">
-    <StackLayout>
+    <FlexboxLayout justifyContent="center" alignContent="center" height="100">
         <Label text="It worked!"/>
-    </StackLayout>
+    </FlexboxLayout>
 </Page>
