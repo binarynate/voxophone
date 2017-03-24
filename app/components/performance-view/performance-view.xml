@@ -1,5 +1,5 @@
 <Page loaded="onLoaded">
-    <FlexboxLayout justifyContent="center" alignContent="center" height="100">
-        <Label text="It worked!"/>
+    <FlexboxLayout class="music-note-meter">
+        <Label text="This is where the music note meter will go."/>
     </FlexboxLayout>
 </Page>
