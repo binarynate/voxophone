@@ -10,6 +10,21 @@
     }
   },
   "scripts": {
+    "ios-emulator": "npm run lint && tns run ios --emulator",
+    "watch-ios-emulator": "npm run lint && tns livesync ios --emulator --watch",
+    "watch-ios": "npm run lint && tns livesync ios --watch",
+    "watch-android": "npm run lint && tns livesync android --watch",
+    "ios": "npm run lint && tns run ios",
+    "android": "npm run lint && tns run android",
+    "debug-ios-emulator": "npm run lint && tns debug ios --debug-brk --emulator",
+    "debug-ios": "npm run lint && tns debug ios --debug-brk --timeout 180 --device 3bd64cadd373a41153305da9bc9606d6bcee71d2",
+    "debug-android": "npm run lint && tns debug android",
+    "watch-debug-ios-emulator": "npm run lint && tns debug ios --no-rebuild --debug-brk --emulator",
+    "debug-watch-ios-emulator": "npm run lint && tns debug ios --no-rebuild --debug-brk --emulator",
+    "debug-watch-ios": "npm run lint && tns debug ios --no-rebuild --debug-brk --device 3bd64cadd373a41153305da9bc9606d6bcee71d2",
+    "watch-debug-ios": "npm run lint && tns debug ios --no-rebuild --debug-brk --device 3bd64cadd373a41153305da9bc9606d6bcee71d2",
+    "debug-watch-android": "npm run lint && tns debug android --no-rebuild --debug-brk",
+    "watch-debug-android": "npm run lint && tns debug android --no-rebuild --debug-brk",
     "reinstall-platforms": "rm -rf platforms && tns install",
     "install-engine": "tns plugin install ../nativescript-voxophone-engine/",
     "remove-engine": "tns plugin remove nativescript-voxophone-engine",
@@ -17,6 +32,7 @@
   },
   "dependencies": {
     "nativescript-theme-core": "~1.0.2",
+    "nativescript-voxophone-engine": "file:///Users/nathan.hill/repos/sonic.design/nativescript-voxophone-engine",
     "tns-core-modules": "2.5.2"
   },
   "devDependencies": {
