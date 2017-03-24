@@ -1,5 +1,11 @@
-<Page loaded="onLoaded">
-    <FlexboxLayout class="music-note-meter">
-        <Label text="This is where the music note meter will go."/>
+<Page loaded="onLoaded"
+      xmlns:i="components/instrument-picker"
+      xmlns:m="components/music-note-meter">
+
+    <FlexboxLayout class="performance-view">
+
+        <m:music-note-meter class="music-note-meter"/>
+
+        <i:instrument-picker/>
     </FlexboxLayout>
 </Page>
