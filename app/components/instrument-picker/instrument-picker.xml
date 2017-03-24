@@ -1,3 +1,45 @@
-<StackLayout loaded="onLoaded">
+<StackLayout loaded="onLoaded" class="instrument-picker">
     <Label text="The instrument picker will go here."/>
+
+    <ScrollView orientation="horizontal">
+        <StackLayout orientation="horizontal" class="instruments-scroll-view">
+            <Label text="Item 1"/>
+            <Label text="Item 2"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+            <Label text="Item 3"/>
+        </StackLayout>
+    </ScrollView>
+
 </StackLayout>
