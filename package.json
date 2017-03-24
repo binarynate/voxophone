@@ -31,11 +31,13 @@
     "reinstall-engine": "npm run remove-engine && npm run install-engine && npm run reinstall-platforms"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.0",
     "nativescript-theme-core": "~1.0.2",
     "nativescript-voxophone-engine": "file:///Users/nathan.hill/repos/sonic.design/nativescript-voxophone-engine",
     "tns-core-modules": "2.5.2"
   },
   "devDependencies": {
-    "nativescript-dev-android-snapshot": "^0.*.*"
+    "nativescript-dev-android-snapshot": "^0.*.*",
+    "nativescript-dev-babel": "^0.1.6"
   }
 }

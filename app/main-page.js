@@ -11,7 +11,7 @@ JavaScript modules defined in other files.
 */
 var createViewModel = require("./main-view-model").createViewModel;
 
-let VoxophoneEngine = require('nativescript-voxophone-engine');
+import VoxophoneEngine from 'nativescript-voxophone-engine';
 let voxophoneEngine;
 
 function onNavigatingTo(args) {
