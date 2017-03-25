@@ -2,7 +2,7 @@ import { validate } from 'parameter-validator';
 import { Folder } from 'file-system';
 import clone from '../../utils/clone';
 
-export default class FileSystemStorage {
+export default class FileSystemJsonStorage {
 
     constructor(options) {
 
