@@ -2,10 +2,13 @@ import { Logger } from 'nativescript-utilities';
 import VoxophoneEngine from 'nativescript-voxophone-engine';
 import application from 'application';
 
+import InstrumentStorage from './models/storage/InstrumentStorage';
+
 // Build the app's dependencies
 let appDependencies = {
     logger: new Logger(),
-    voxophone: new VoxophoneEngine()
+    voxophone: new VoxophoneEngine(),
+    instrumentStorage: new InstrumentStorage()
 };
 
 application.start({
