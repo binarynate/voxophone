@@ -8,8 +8,7 @@
             <Label text="Item 1"/>
             <Label text="Item 2"/>
             <Label text="Item 3"/>
-            <i:instrument/>
-
+            <i:instrument class="instrument" imageSource="~/img/guitar.png"/>
             <Label text="Item 3"/>
             <Label text="Item 3"/>
             <Label text="Item 3"/>
