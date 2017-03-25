@@ -20,10 +20,10 @@ class PerformanceView extends Component {
 
         let appDependencies = this.get('appDependencies');
 
-        validate(appDependencies, [ 'logger', 'voxophone', 'fileInfoStorage' ], this, { addPrefix: '_' });
+        validate(appDependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
         this._initialized = true;
 
-        return this._fileInfoStorage.query()
+        return this._instrumentManager.getInstruments()
         .then(instruments => {
 
             return instruments;

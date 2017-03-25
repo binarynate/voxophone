@@ -4,20 +4,23 @@ import application from 'application';
 
 import FileSystemJsonStorage from './models/storage/FileSystemJsonStorage';
 import FileInfoStorage from './models/storage/FileInfoStorage';
+import InstrumentManager from './models/InstrumentManager';
 
 let logger = new Logger();
 
 logger.info(`Building the app's dependencies...`);
 let storageBasePath = `${__dirname}/data`;
 
-let instrumentStorage = new FileSystemJsonStorage({ logger, directoryPath: `${storageBasePath}/instruments` });
-let fileInfoStorage = new FileInfoStorage({ logger, directoryPath: `${storageBasePath}/fileInfo` });
+let instrumentManager = new InstrumentManager({
+    logger,
+    instrumentStorage: new FileSystemJsonStorage({ logger, directoryPath: `${storageBasePath}/instruments` }),
+    fileInfoStorage: new FileInfoStorage({ logger, directoryPath: `${storageBasePath}/fileInfo` })
+});
 
 let appDependencies = {
     logger,
     voxophone: new VoxophoneEngine(),
-    fileInfoStorage,
-    instrumentStorage
+    instrumentManager
 };
 
 application.start({
