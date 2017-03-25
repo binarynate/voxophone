@@ -23,7 +23,11 @@ class PerformanceView extends Component {
         validate(appDependencies, [ 'logger', 'voxophone', 'instrumentStorage' ], this, { addPrefix: '_' });
         this._initialized = true;
 
-        return this._instrumentStorage.query();
+        return this._instrumentStorage.query()
+        .then(instruments => {
+
+            return instruments;
+        });
     }
 }
 

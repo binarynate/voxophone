@@ -2,13 +2,17 @@ import { Logger } from 'nativescript-utilities';
 import VoxophoneEngine from 'nativescript-voxophone-engine';
 import application from 'application';
 
-import InstrumentStorage from './models/storage/InstrumentStorage';
+import FileSystemStorage from './models/storage/FileSystemStorage';
 
-// Build the app's dependencies
+let logger = new Logger();
+
+logger.info(`Building the app's dependencies...`);
+let storageBasePath = `${__dirname}/data`;
+
 let appDependencies = {
-    logger: new Logger(),
+    logger,
     voxophone: new VoxophoneEngine(),
-    instrumentStorage: new InstrumentStorage()
+    instrumentStorage: new FileSystemStorage({ logger, directoryPath: `${storageBasePath}/instruments` })
 };
 
 application.start({
