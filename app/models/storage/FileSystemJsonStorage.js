@@ -1,5 +1,5 @@
 import { validate } from 'parameter-validator';
-import { Folder } from 'file-system';
+import { Folder, File } from 'file-system';
 
 /**
 * Implements database-like, file system-based storage for JSON objects.
@@ -24,9 +24,12 @@ export default class FileSystemJsonStorage {
             let storageDirectory = Folder.fromPath(this._directoryPath);
             return storageDirectory.getEntities();
         })
-        .then(files => {
+        .then(entities => {
 
-            let promisedSerializedEntities = files.map(file => file.readText());
+            let jsonFiles = entities.filter(entity => entity instanceof File)
+                                    .filter(({ extension }) => extension === '.json');
+
+            let promisedSerializedEntities = jsonFiles.map(file => file.readText());
             return Promise.all(promisedSerializedEntities);
         })
         .then(serializedEntities => {
@@ -39,7 +42,9 @@ export default class FileSystemJsonStorage {
                 } catch (error) {
                     this._logger.error(`${this.constructor.name} encountered an invalid JSON file, which will be omitted.`, { error, serializedEntity });
                 }
-                return [ ...parsedEntities, serializedEntity ];
+
+                if (parsedEntity) parsedEntities.push(parsedEntity);
+                return parsedEntities;
             }, []);
 
             return entities;
