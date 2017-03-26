@@ -18,16 +18,9 @@ class PerformanceView extends Component {
 
         super.onLoaded(...arguments);
 
-        let appDependencies = this.get('appDependencies');
-
-        validate(appDependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
+        let dependencies = this.get('dependencies');
+        validate(dependencies, [ 'logger' ], this, { addPrefix: '_' });
         this._initialized = true;
-
-        return this._instrumentManager.getInstruments()
-        .then(instruments => {
-
-            return instruments;
-        });
     }
 }
 

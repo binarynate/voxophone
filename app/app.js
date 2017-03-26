@@ -17,7 +17,7 @@ let instrumentManager = new InstrumentManager({
     fileInfoStorage: new FileInfoStorage({ logger, directoryPath: `${storageBasePath}/fileInfo` })
 });
 
-let appDependencies = {
+let dependencies = {
     logger,
     voxophone: new VoxophoneEngine(),
     instrumentManager
@@ -26,7 +26,7 @@ let appDependencies = {
 application.start({
     moduleName: 'components/performance-view/performance-view',
     context: {
-        appDependencies
+        dependencies
     }
 });
 

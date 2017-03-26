@@ -6,6 +6,6 @@
 
         <m:music-note-meter class="music-note-meter"/>
 
-        <i:instrument-picker/>
+        <i:instrument-picker dependencies="{{ dependencies }}"/>
     </FlexboxLayout>
 </Page>
