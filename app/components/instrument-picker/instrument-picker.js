@@ -4,13 +4,13 @@ import Component from 'nativescript-component';
 class InstrumentPicker extends Component {
 
 
-    onLoaded() {
+    onPageLoaded() {
 
         if (this._initialized) {
             return;
         }
 
-        super.onLoaded(...arguments);
+        // super.onLoaded(...arguments);
 
         let dependencies = this.get('dependencies');
         console.log(dependencies);

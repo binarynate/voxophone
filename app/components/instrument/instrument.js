@@ -2,13 +2,13 @@ import Component from 'nativescript-component';
 
 class Instrument extends Component {
 
-    onLoaded() {
+    onPageLoaded() {
 
         if (this._initialized) {
             return;
         }
 
-        super.onLoaded(...arguments);
+        // super.onLoaded(...arguments);
         // let instrument = this.get('instrument');
         // let imageSource = instrument.imageInfo.filePath;
         // this.set('imageSource', imageSource);

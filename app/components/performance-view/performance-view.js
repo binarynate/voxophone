@@ -10,13 +10,13 @@ class PerformanceView extends Component {
         return true;
     }
 
-    onLoaded() {
+    onPageLoaded() {
 
         if (this._initialized) {
             return;
         }
 
-        super.onLoaded(...arguments);
+        // super.onLoaded(...arguments);
 
         let dependencies = this.get('dependencies');
         validate(dependencies, [ 'logger' ], this, { addPrefix: '_' });
