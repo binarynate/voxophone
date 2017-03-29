@@ -4,7 +4,7 @@ import Component from 'nativescript-component';
 class InstrumentPicker extends Component {
 
 
-    onPageLoaded() {
+    init() {
 
         if (this._initialized) {
             return;

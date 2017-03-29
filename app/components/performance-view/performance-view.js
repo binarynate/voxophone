@@ -10,7 +10,7 @@ class PerformanceView extends Component {
         return true;
     }
 
-    onPageLoaded() {
+    init() {
 
         if (this._initialized) {
             return;

@@ -2,7 +2,7 @@ import Component from 'nativescript-component';
 
 class Instrument extends Component {
 
-    onPageLoaded() {
+    init() {
 
         if (this._initialized) {
             return;

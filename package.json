@@ -37,7 +37,7 @@
     "nativescript-utilities": "^0.1.0",
     "nativescript-voxophone-engine": "file:///Users/nathan.hill/repos/sonic.design/nativescript-voxophone-engine",
     "tns-core-modules": "2.5.2",
-    "nativescript-component": "git://git@github.com:BinaryNate/nativescript-component.git#debug"
+    "nativescript-component": "git://git@github.com:BinaryNate/nativescript-component.git#develop"
   },
   "devDependencies": {
     "jshint": "^2.9.4",
