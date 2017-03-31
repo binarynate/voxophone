@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.0",
+    "nativescript-component": "git://git@github.com:BinaryNate/nativescript-component.git#develop",
     "nativescript-theme-core": "~1.0.2",
     "nativescript-utilities": "^0.1.0",
     "nativescript-voxophone-engine": "file:///Users/nathan.hill/repos/sonic.design/nativescript-voxophone-engine",
-    "tns-core-modules": "2.5.2",
-    "nativescript-component": "git://git@github.com:BinaryNate/nativescript-component.git#develop"
+    "tns-core-modules": "2.5.2"
   },
   "devDependencies": {
     "jshint": "^2.9.4",

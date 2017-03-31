@@ -1,4 +1,4 @@
-// import { validate } from 'parameter-validator';
+import { validate } from 'parameter-validator';
 import Component from 'nativescript-component';
 
 class InstrumentPicker extends Component {
@@ -6,22 +6,22 @@ class InstrumentPicker extends Component {
 
     init() {
 
-        if (this._initialized) {
-            return;
-        }
-
-        // super.onLoaded(...arguments);
-
+        console.log('initializing instrument-picker');
         let dependencies = this.get('dependencies');
-        console.log(dependencies);
-        // validate(dependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
 
-        // return this._instrumentManager.getInstruments()
-        // .then(instruments => {
-        //     this.set('instruments', instruments);
-        //     this.set('instrument', instruments[0]);
-        //     this._initialized = true;
-        // });
+        validate(dependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
+
+        return this._instrumentManager.getInstruments()
+        .then(instruments => {
+
+            console.log('received instruments');
+            // console.log(`${Math.random()} instruments: ${JSON.stringify(instruments)}`);
+
+            this.set('instruments', instruments);
+            this.set('instrument', instruments[0]);
+            console.log('instrument set: ' + JSON.stringify(this.get('instrument')));
+            this._initialized = true;
+        });
     }
 }
 

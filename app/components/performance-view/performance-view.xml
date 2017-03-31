@@ -1,4 +1,4 @@
-<Page loaded="onLoaded"
+<Page navigatingTo="onNavigatingTo"
       xmlns:i="components/instrument-picker"
       xmlns:m="components/music-note-meter">
 
