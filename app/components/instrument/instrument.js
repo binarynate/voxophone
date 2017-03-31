@@ -14,8 +14,10 @@ class Instrument extends Component {
 
     onTap() {
 
-        let imageSource = this.get('imageSource');
-        console.log('Tap event received! imageSource: ' + imageSource);
+        let instrument = this.get('instrument');
+        console.log('Setting instrument...');
+        this._voxophone.setInstrument({ instrument });
+        console.log('Finished setting instrument!');
     }
 }
 

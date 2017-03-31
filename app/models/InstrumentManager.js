@@ -1,23 +1,5 @@
 import { validate } from 'parameter-validator';
 
-/**
-* @interface Instrument
-*
-* @property {string}   id                     - guid
-* @property {string}   name                   - e.g. 'Acoustic Grand Piano'
-* @property {FileInfo} soundBankInfo
-* @property {int}      soundBankProgramNumber
-* @property {FileInfo} imageInfo
-*/
-
-/**
-* @interface FileInfo
-*
-* @property {string} id
-* @property {string} name     - file name, with extension
-* @property {string} filePath - Absolute path to the file on disk
-*/
-
 export default class InstrumentManager {
 
     constructor(options) {

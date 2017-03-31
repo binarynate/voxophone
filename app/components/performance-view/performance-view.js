@@ -12,7 +12,6 @@ class PerformanceView extends Component {
 
     init() {
 
-        console.log('initializing performace-view');
         let dependencies = this.get('dependencies');
         validate(dependencies, [ 'logger' ], this, { addPrefix: '_' });
         this._initialized = true;
