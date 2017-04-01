@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import uuid from 'uuid';
-import { validate, validateAsync } from 'parameter-validator';
+import { validate } from 'parameter-validator';
 import ninvoke from './ninvoke';
 
 /**

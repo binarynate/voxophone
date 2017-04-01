@@ -1,4 +1,5 @@
-import { validate } from 'parameter-validator';
+import _ from 'lodash';
+import { validate, validateAsync } from 'parameter-validator';
 
 export default class InstrumentManager {
 
@@ -41,6 +42,36 @@ export default class InstrumentManager {
 
                 return this._cachedInstruments;
             });
+        });
+    }
+
+
+    saveInstruments(options) {
+
+        return validateAsync(options, [ 'instruments' ])
+        .then(({ instruments }) => {
+
+            let promisedInstruments = instruments.map(instrument => {
+
+                let { soundBankInfo, imageInfo } = instrument,
+                    promisedSoundBankInfoId,
+                    promisedImageInfoId;
+
+                promisedSoundBankInfoId = soundBankInfo.id ? Promise.resolve(soundBankInfo.id)
+                                                           : this._fileInfoStorage.insert(soundBankInfo).then(({ id }) => id);
+
+                promisedImageInfoId = imageInfo.id ? Promise.resolve(imageInfo.id)
+                                                           : this._fileInfoStorage.insert(imageInfo).then(({ id }) => id);
+
+                return Promise.all([ promisedSoundBankInfoId, promisedImageInfoId ])
+                .then(([ soundBankInfoId, imageInfoId ]) => {
+
+                    let instrumentToInsert = _.omit(instrument, [ 'soundBankInfo', 'imageInfo' ]);
+                    Object.assign(instrumentToInsert, { soundBankInfoId, imageInfoId });
+                    return this._instrumentStorage.insert(instrumentToInsert);
+                });
+            });
+            return Promise.all(promisedInstruments);
         });
     }
 

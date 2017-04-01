@@ -1,3 +1,8 @@
+import fs from 'fs';
+import path from 'path';
+import _ from 'lodash';
+import copy from 'copy';
+import ninvoke from './ninvoke';
 import NodeFileSystemJsonStorage from './NodeFileSystemJsonStorage';
 
 /**
@@ -6,13 +11,36 @@ import NodeFileSystemJsonStorage from './NodeFileSystemJsonStorage';
 */
 export default class NodeFileInfoStorage extends NodeFileSystemJsonStorage {
 
-    insert() {
+    /**
+    * Inserts a new file info record, copying the file from the location indicated by the given fileInfo.
+    *
+    * @param   {FileInfo}         fileInfo
+    * @returns {Promise.<Object>} result
+    * @returns {string}           result.id
+    */
+    insert(originalFileInfo) {
 
-        return super.insert(...arguments)
-        .then(entity => {
+        let newFilePath,
+            newFileDirectory,
+            newFileInfoId;
 
-            let { id } = entity;
-            // TODO: Create a directory named with the ID and copy the file to that directory.
-        });
+        return Promise.resolve()
+        .then(() => {
+
+            let fileInfoToInsert = _.cloneDeep(originalFileInfo);
+            // Delete the filePath, as that's added dynamically after the entity is retrieved from disk.
+            delete fileInfoToInsert.filePath;
+            return super.insert(fileInfoToInsert);
+        })
+        .then(newFileInfo => {
+
+            let newFileInfoId = newFileInfo.id;
+            newFileDirectory = path.join(this._directoryPath, 'files', newFileInfoId);
+            newFilePath = path.join(newFileDirectory, newFileInfo.name);
+
+            return ninvoke(fs, 'mkdir', newFileDirectory);
+        })
+        .then(() => ninvoke({ copy }, 'copy', originalFileInfo.filePath, newFilePath))
+        .then(() => newFileInfoId);
     }
 }
