@@ -65,7 +65,7 @@ export default class InstrumentManager {
 
                 return Promise.all([ promisedSoundBankInfoId, promisedImageInfoId ])
                 .then(([ soundBankInfoId, imageInfoId ]) => {
-
+                    debugger;
                     let instrumentToInsert = _.omit(instrument, [ 'soundBankInfo', 'imageInfo' ]);
                     Object.assign(instrumentToInsert, { soundBankInfoId, imageInfoId });
                     return this._instrumentStorage.insert(instrumentToInsert);

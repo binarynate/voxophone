@@ -33,7 +33,7 @@ export default class NodeFileInfoStorage extends NodeFileSystemJsonStorage {
         })
         .then(newFileInfo => {
 
-            let newFileInfoId = newFileInfo.id;
+            newFileInfoId = newFileInfo.id;
             newFileDirectory = path.join(this._directoryPath, 'files', newFileInfoId);
             newFilePath = path.join(newFileDirectory, newFileInfo.name);
             return ninvoke(fs, 'mkdir', newFileDirectory);
