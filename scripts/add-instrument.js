@@ -1,8 +1,8 @@
 import path from 'path';
 import logger from 'winston';
 import InstrumentManager from '../app/models/InstrumentManager';
-import NodeFileSystemJsonStorage from './NodeFileSystemJsonStorage';
-import NodeFileInfoStorage from './NodeFileInfoStorage';
+import NodeFileSystemJsonStorage from './util/NodeFileSystemJsonStorage';
+import NodeFileInfoStorage from './util/NodeFileInfoStorage';
 
 const storageBasePath = __dirname + '/../app/data';
 const defaultSoundBankId = 'b32b751a-cc80-4b6f-96ea-8c8eb9f1b9c9';

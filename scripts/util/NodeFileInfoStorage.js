@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
-import copy from 'copy';
 import ninvoke from './ninvoke';
 import NodeFileSystemJsonStorage from './NodeFileSystemJsonStorage';
 
@@ -37,10 +36,25 @@ export default class NodeFileInfoStorage extends NodeFileSystemJsonStorage {
             let newFileInfoId = newFileInfo.id;
             newFileDirectory = path.join(this._directoryPath, 'files', newFileInfoId);
             newFilePath = path.join(newFileDirectory, newFileInfo.name);
-
             return ninvoke(fs, 'mkdir', newFileDirectory);
         })
-        .then(() => ninvoke({ copy }, 'copy', originalFileInfo.filePath, newFilePath))
-        .then(() => newFileInfoId);
+        .then(() => this._copyFile(originalFileInfo.filePath, newFilePath))
+        .then(() => ({ id: newFileInfoId }));
     }
+
+    _copyFile(source, destination) {
+
+        let resolve, reject;
+        let promise = new Promise((...args) => { [ resolve, reject ] = args; });
+
+        let readStream = fs.createReadStream(source);
+        readStream.on('error', reject);
+
+        let writeStream = fs.createWriteStream(destination);
+        writeStream.on('close', resolve);
+
+        readStream.pipe(writeStream);
+        return promise;
+    }
+
 }

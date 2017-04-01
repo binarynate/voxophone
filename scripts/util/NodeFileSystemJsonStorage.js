@@ -28,7 +28,7 @@ export default class NodeFileSystemJsonStorage {
             entity.id = id;
 
             let filePath = path.join(this._directoryPath, `${id}.json`);
-            let serializedEntity = JSON.stringify(entity);
+            let serializedEntity = JSON.stringify(entity, null, 4);
             return ninvoke(fs, 'writeFile', filePath, serializedEntity)
             .then(() => entity);
         });
