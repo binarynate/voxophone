@@ -33,6 +33,8 @@
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.0",
+    "babel-preset-node6": "^11.0.0",
+    "babel-register": "^6.24.0",
     "copy": "^0.3.0",
     "lodash": "^4.17.4",
     "nativescript-component": "git://git@github.com:BinaryNate/nativescript-component.git#develop",
