@@ -12,8 +12,9 @@ class InstrumentPicker extends Component {
         return this._instrumentManager.getInstruments()
         .then(instruments => {
 
-            this.set('instruments', instruments);
-            this.set('instrument', instruments[0]);
+            let instrumentOptions = instruments.map(instrument => ({ instrument }));
+            this.set('instrumentOptions', instrumentOptions);
+            // this.set('instrument', instruments[0]);
             this._initialized = true;
         });
     }

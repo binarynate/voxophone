@@ -5,43 +5,21 @@
 
     <ScrollView orientation="horizontal">
         <StackLayout orientation="horizontal" class="instruments-scroll-view">
-            <Label text="Item 1"/>
+
+            <ListView items="{{ instrumentOptions }}" row="1">
+                <ListView.itemTemplate>
+                    <i:instrument class="instrument" instrument="{{ instrument }}" dependencies="{{ dependencies }}"/>
+                </ListView.itemTemplate>
+            </ListView>
+
+
+<!--             <Label text="Item 1"/>
             <Label text="Item 2"/>
             <Label text="Item 3"/>
             <i:instrument class="instrument" instrument="{{ instrument }}" dependencies="{{ dependencies }}"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
-            <Label text="Item 3"/>
+            <Label text="Item 3"/> -->
+
+
         </StackLayout>
     </ScrollView>
 
