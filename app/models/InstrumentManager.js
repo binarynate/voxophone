@@ -66,7 +66,7 @@ export default class InstrumentManager {
                 return Promise.all([ promisedSoundBankInfoId, promisedImageInfoId ])
                 .then(([ soundBankInfoId, imageInfoId ]) => {
 
-                    let instrumentToInsert = Object.assign({}, instrumentToInsert, {
+                    let instrumentToInsert = Object.assign({}, instrument, {
                         soundBankInfo: {
                             id: soundBankInfoId
                         },
