@@ -4,23 +4,13 @@
     <Label text="The instrument picker will go here."/>
 
     <ScrollView orientation="horizontal">
-        <StackLayout orientation="horizontal" class="instruments-scroll-view">
-
-            <ListView items="{{ instrumentOptions }}" row="1">
-                <ListView.itemTemplate>
-                    <i:instrument class="instrument" instrument="{{ instrument }}" dependencies="{{ dependencies }}"/>
-                </ListView.itemTemplate>
-            </ListView>
-
-
-<!--             <Label text="Item 1"/>
-            <Label text="Item 2"/>
-            <Label text="Item 3"/>
-            <i:instrument class="instrument" instrument="{{ instrument }}" dependencies="{{ dependencies }}"/>
-            <Label text="Item 3"/> -->
-
-
-        </StackLayout>
+        <Repeater items="{{ instrumentOptions }}" row="1" class="instruments-scroll-view">
+            <Repeater.itemsLayout>
+                <StackLayout orientation="horizontal" />
+            </Repeater.itemsLayout>
+            <Repeater.itemTemplate>
+                <i:instrument class="instrument"/>
+            </Repeater.itemTemplate>
+        </Repeater>
     </ScrollView>
-
 </StackLayout>

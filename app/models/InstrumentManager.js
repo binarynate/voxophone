@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { validate, validateAsync } from 'parameter-validator';
 
 export default class InstrumentManager {
