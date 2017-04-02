@@ -1,3 +1,5 @@
 <StackLayout loaded="onLoaded" tap="onTap" class="instrument">
-    <Image src="{{ imageSource }}"/>
+    <StackLayout class="image-container">
+        <Image src="{{ imageSource }}"/>
+    </StackLayout>
 </StackLayout>
