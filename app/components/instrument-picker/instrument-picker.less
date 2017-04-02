@@ -1,6 +1,24 @@
 @import '../../variables.less';
 
+@selectedInstrumentBackdropMargin: 20;
+
 .instrument-picker {
+
+    .selected-instrument {
+
+        background-color: @color1 - 25;
+        margin-top: @selectedInstrumentBackdropMargin;
+        margin-bottom: @selectedInstrumentBackdropMargin;
+
+        .image-container {
+
+            background-color: white;
+            border-radius: 80;
+            height: 160;
+            width: 160;
+            margin: -@selectedInstrumentBackdropMargin
+        }
+    }
 
     .instruments-scroll-view {
         width: 9000;

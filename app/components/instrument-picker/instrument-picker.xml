@@ -1,7 +1,11 @@
 <StackLayout loaded="onLoaded" class="instrument-picker"
              xmlns:i="components/instrument">
 
-    <Label text="The instrument picker will go here."/>
+    <StackLayout class="selected-instrument">
+        <StackLayout class="image-container">
+            <Image src="/Users/nathan.hill/repos/sonic.design/voxophone/scripts/files/acoustic-grand-piano.png"/>
+        </StackLayout>
+    </StackLayout>
 
     <ScrollView orientation="horizontal">
         <Repeater items="{{ instrumentOptions }}" row="1" class="instruments-scroll-view">
