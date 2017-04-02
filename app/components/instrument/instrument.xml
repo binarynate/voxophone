@@ -1,4 +1,3 @@
 <StackLayout loaded="onLoaded" tap="onTap" class="instrument">
     <Image src="{{ imageSource }}"/>
-    <Label text="Did this work?"/>
 </StackLayout>
