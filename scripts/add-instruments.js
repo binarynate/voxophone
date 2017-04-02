@@ -7,22 +7,29 @@ import NodeFileInfoStorage from './util/NodeFileInfoStorage';
 const storageBasePath = __dirname + '/../app/data';
 
 let defaultSoundBank = {
-    'name': 'GeneralUser GS MuseScore v1.442.sf2'
+    name: 'GeneralUser GS MuseScore v1.442.sf2'
 };
 defaultSoundBank.filePath = path.join(__dirname, 'files', defaultSoundBank.name)
 
 let instruments = [
     {
-        'name': 'Acoustic Grand Piano',
-        'soundBankProgramNumber': 0,
-        'imageInfo': {
+        name: 'Acoustic Grand Piano',
+        soundBankProgramNumber: 0,
+        imageInfo: {
             name: 'acoustic-grand-piano.png'
         }
     },
     {
-        'name': 'Alto Sax',
-        'soundBankProgramNumber': 65,
-        'imageInfo': {
+        name: 'Vibraphone',
+        soundBankProgramNumber: 11,
+        imageInfo: {
+            name: 'vibraphone.jpg'
+        }
+    },
+    {
+        name: 'Alto Sax',
+        soundBankProgramNumber: 65,
+        imageInfo: {
             name: 'alto-sax.jpg'
         }
     }
