@@ -4,7 +4,9 @@
 
     <FlexboxLayout class="performance-view">
 
-        <m:music-note-meter class="music-note-meter"/>
+        <StackLayout class="music-note-meter-container">
+            <m:music-note-meter/>
+        </StackLayout>
 
         <i:instrument-picker dependencies="{{ dependencies }}"/>
     </FlexboxLayout>
