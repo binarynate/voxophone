@@ -1,4 +1,9 @@
 <FlexboxLayout loaded="onLoaded" class="music-note-meter">
 
-    <Label class="meter" text="The Music note meter will go here."/>
+    <FlexboxLayout class="meter">
+
+        <FlexboxLayout class="meter-center">
+            <Label text="C♯" />
+        </FlexboxLayout>
+    </FlexboxLayout>
 </FlexboxLayout>
