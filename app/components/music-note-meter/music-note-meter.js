@@ -29,30 +29,28 @@ class MusicNoteMeter extends Component {
             let centerSize = center.getActualSize();
             let centerRadius = centerSize.width / 2;
 
-            let innerRing = new FlexboxLayout();
-            innerRing.addChild(center);
+            // let innerRing = new FlexboxLayout();
+            // innerRing.addChild(center);
 
-            let ringRadius = centerRadius + ((outerRingRadius - centerRadius) / 2);
-            innerRing.height = innerRing.width = ringRadius * 2;
-            innerRing.borderRadius = ringRadius;
-            innerRing.backgroundColor = new Color('#FF0000');
-            innerRing.alignItems = AlignItems.CENTER;
-            innerRing.justifyContent = JustifyContent.CENTER;
-            FlexboxLayout.setFlexGrow(innerRing, 0);
-            FlexboxLayout.setFlexShrink(innerRing, 0);
+            // let ringRadius = centerRadius + ((outerRingRadius - centerRadius) / 2);
+            // innerRing.height = innerRing.width = ringRadius * 2;
+            // innerRing.borderRadius = ringRadius;
+            // innerRing.backgroundColor = new Color('#FF0000');
+            // innerRing.alignItems = AlignItems.CENTER;
+            // innerRing.justifyContent = JustifyContent.CENTER;
+            // FlexboxLayout.setFlexGrow(innerRing, 0);
+            // FlexboxLayout.setFlexShrink(innerRing, 0);
 
             console.log('Generating rings...');
 
-            let numberOfRings = 5;
-            let numberOfAdditionalRings = numberOfRings - 2;
+            let numberOfRings = 4;
             let radiusLengthToDivide = outerRingRadius - centerRadius;
-            let radiusStepSize = radiusLengthToDivide / numberOfAdditionalRings;
+            let radiusStepSize = radiusLengthToDivide / numberOfRings;
 
             let rings = [];
-            rings.push(innerRing);
-            let previousRing = innerRing;
+            let previousRing = center;
 
-            for (let i = 0; i < numberOfAdditionalRings; i++) {
+            for (let i = 0; i < numberOfRings - 1; i++) {
 
                 let radius = previousRing.borderRadius + radiusStepSize;
                 let ring = this._createRing(radius);
@@ -61,6 +59,7 @@ class MusicNoteMeter extends Component {
             }
             rings.push(outerRing);
 
+            rings[0].addChild(center);
             rings.forEach((ring, index) => {
 
                 let parentRing = rings[index + 1];
@@ -81,7 +80,9 @@ class MusicNoteMeter extends Component {
         let ring = new FlexboxLayout();
         ring.height = ring.width = radius * 2;
         ring.borderRadius = radius;
-        ring.backgroundColor = new Color(this._getRandomColor());
+        let color = this._getRandomColor();
+        console.log('color: ' + color);
+        ring.backgroundColor = new Color(color);
         ring.alignItems = AlignItems.CENTER;
         ring.justifyContent = JustifyContent.CENTER;
         FlexboxLayout.setFlexGrow(ring, 0);
@@ -91,7 +92,7 @@ class MusicNoteMeter extends Component {
 
     _getRandomColor() {
 
-        let num = Math.random() * 0xFFFFFF;
+        let num = Math.floor(Math.random() * 0xFFFFFF);
         return '#' + num.toString(16);
     }
 }
