@@ -1,5 +1,6 @@
 import { FlexboxLayout, AlignItems, JustifyContent } from 'ui/layouts/flexbox-layout';
 import { Color } from 'color';
+import ColorEditor from '../../utils/Color';
 import Component from 'nativescript-component';
 import delay from '../../utils/delay';
 
@@ -29,18 +30,6 @@ class MusicNoteMeter extends Component {
             let centerSize = center.getActualSize();
             let centerRadius = centerSize.width / 2;
 
-            // let innerRing = new FlexboxLayout();
-            // innerRing.addChild(center);
-
-            // let ringRadius = centerRadius + ((outerRingRadius - centerRadius) / 2);
-            // innerRing.height = innerRing.width = ringRadius * 2;
-            // innerRing.borderRadius = ringRadius;
-            // innerRing.backgroundColor = new Color('#FF0000');
-            // innerRing.alignItems = AlignItems.CENTER;
-            // innerRing.justifyContent = JustifyContent.CENTER;
-            // FlexboxLayout.setFlexGrow(innerRing, 0);
-            // FlexboxLayout.setFlexShrink(innerRing, 0);
-
             console.log('Generating rings...');
 
             let numberOfRings = 4;
@@ -61,12 +50,19 @@ class MusicNoteMeter extends Component {
 
             rings[0].addChild(center);
             rings.forEach((ring, index) => {
-
                 let parentRing = rings[index + 1];
 
                 if (parentRing) {
                     parentRing.addChild(ring);
                 }
+            });
+
+            let rootColor = '#ff871e';
+
+            rings.forEach((ring, index) => {
+
+                let { r, g, b } = ColorEditor(rootColor).lighten(index * 0.2).rgb().object();
+                ring.backgroundColor = new Color(255, r, g, b);
             });
 
             console.log('made it to the end of initialization!');

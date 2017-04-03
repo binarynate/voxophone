@@ -34,6 +34,8 @@
   "dependencies": {
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-node6": "^11.0.0",
+    "color-convert": "^1.9.0",
+    "color-string": "^1.5.2",
     "lodash": "^4.17.4",
     "nativescript-component": "git://git@github.com:BinaryNate/nativescript-component.git#develop",
     "nativescript-theme-core": "~1.0.2",
