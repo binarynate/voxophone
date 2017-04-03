@@ -8,25 +8,16 @@ const NUMBER_OF_RINGS = 4;
 
 class MusicNoteMeter extends Component {
 
-    /**
-    * Sets the component's height equal to its width.
-    */
+
     init() {
 
-        try {
+        return this._buildMusicNoteMeterInterface();
+    }
 
-            let outerRing = this.view;
-            let outerRingSize = outerRing.getActualSize();
-            let outerRingRadius = Math.min(outerRingSize.height, outerRingSize.width) / 2;
+    _buildMusicNoteMeterInterface() {
 
-            if (outerRingRadius === 0) {
-                // The view hasn't been fully initialized. Let's try again in 1 millisecond.
-                return delay(1).then(() => this.init());
-            }
-            // Set the height and width equal to each other, because this view is initially just a rectangle.
-            outerRing.height = this.view.width = outerRingRadius * 2;
-            outerRing.borderRadius = outerRingRadius;
-
+        return this._getOuterRing()
+        .then(outerRing => {
 
             let center = this.view.getViewById('meter-center');
             this.view.removeChild(center);
@@ -43,10 +34,10 @@ class MusicNoteMeter extends Component {
             rings[0].addChild(center);
 
             this._setRingColors(rings);
-
-        } catch (error) {
+        })
+        .catch(error => {
             console.log(`An error occurred during ring creation. ${error.message}: ${error.stack}`);
-        }
+        });
     }
 
     _createRings(initialRing, numberOfRings, radiusStepSize) {
@@ -76,6 +67,26 @@ class MusicNoteMeter extends Component {
         FlexboxLayout.setFlexGrow(ring, 0);
         FlexboxLayout.setFlexShrink(ring, 0);
         return ring;
+    }
+
+    _getOuterRing() {
+
+        return Promise.resolve()
+        .then(() => {
+
+            let outerRing = this.view;
+            let outerRingSize = outerRing.getActualSize();
+            let outerRingRadius = Math.min(outerRingSize.height, outerRingSize.width) / 2;
+
+            if (outerRingRadius === 0) {
+                // The view hasn't been fully initialized. Let's try again in 1 millisecond.
+                return delay(1).then(() => this._getOuterRing());
+            }
+            // Set the height and width equal to each other, because this view is initially just a rectangle.
+            outerRing.height = this.view.width = outerRingRadius * 2;
+            outerRing.borderRadius = outerRingRadius;
+            return outerRing;
+        });
     }
 
     _getRandomColor() {
