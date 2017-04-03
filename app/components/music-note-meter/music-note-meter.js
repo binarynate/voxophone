@@ -10,27 +10,29 @@ class MusicNoteMeter extends Component {
     */
     init() {
 
-        let { height, width } = this.view.getActualSize();
-        let totalDiameter = Math.min(height, width);
+        let outerRingSize = this.view.getActualSize();
+        let outerRingRadius = Math.min(outerRingSize.height, outerRingSize.width) / 2;
 
-        if (totalDiameter === 0) {
+        if (outerRingRadius === 0) {
             // The view hasn't been fully initialized. Let's try again in 1 millisecond.
             return delay(1).then(() => this.init());
         }
-        this.view.height = this.view.width = totalDiameter;
-        this.view.borderRadius = totalDiameter / 2;
+        this.view.height = this.view.width = outerRingRadius * 2;
+        this.view.borderRadius = outerRingRadius;
 
 
         let center = this.view.getViewById('meter-center');
         this.view.removeChild(center);
         let centerSize = center.getActualSize();
+        let centerRadius = centerSize.width / 2;
 
         let ring = new FlexboxLayout();
         this.view.addChild(ring);
         ring.addChild(center);
 
-
-        ring.height = ring.width = centerSize.height + 40;
+        let ringRadius = centerRadius + ((outerRingRadius - centerRadius) / 2);
+        ring.height = ring.width = ringRadius * 2;
+        ring.borderRadius = ringRadius;
         ring.backgroundColor = new Color('#FF0000');
         ring.alignItems = AlignItems.CENTER;
         ring.justifyContent = JustifyContent.CENTER;
