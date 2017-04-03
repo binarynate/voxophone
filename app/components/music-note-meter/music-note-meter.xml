@@ -1,7 +1,7 @@
-<StackLayout loaded="onLoaded" class="music-note-meter">
+<FlexboxLayout loaded="onLoaded" class="music-note-meter">
 
-
-    <StackLayout class="meter-center">
+    <FlexboxLayout id="meter-center">
         <Label text="C♯" />
-    </StackLayout>
-</StackLayout>
+    </FlexboxLayout>
+
+</FlexboxLayout>

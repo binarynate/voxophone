@@ -6,7 +6,7 @@ class InstrumentPicker extends Component {
     init() {
 
         let dependencies = this.get('dependencies');
-        let { _voxophone } = validate(dependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
+        validate(dependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
 
         return this._instrumentManager.getInstruments()
         .then(instruments => {
@@ -28,7 +28,7 @@ class InstrumentPicker extends Component {
 
     _setInstrument(instrument) {
 
-        this._voxophone.setInstrument({ instrument })
+        this._voxophone.setInstrument({ instrument });
         this.set('selectedInstrumentImageSource', instrument.imageInfo.filePath);
     }
 }
