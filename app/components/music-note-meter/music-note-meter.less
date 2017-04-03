@@ -1,6 +1,6 @@
 @import '../../variables.less';
 
-@meter-center-diameter: 60;
+@meter-center-diameter: 140;
 
 .music-note-meter {
 
@@ -13,9 +13,14 @@
     #meter-center {
 
         flex: 0 0 auto;
-
+        color: @color1;
         height: @meter-center-diameter;
         width: @meter-center-diameter;
+        border-radius: @meter-center-diameter / 2;
         background-color: white;
+        align-items: center;
+        justify-content: center;
+        font-size: 72;
+        font-weight: bold;
     }
 }
