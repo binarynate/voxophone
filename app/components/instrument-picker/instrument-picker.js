@@ -11,16 +11,25 @@ class InstrumentPicker extends Component {
         return this._instrumentManager.getInstruments()
         .then(instruments => {
 
+            instruments.sort((instrument1, instrument2) => instrument1.soundBankProgramNumber > instrument2.soundBankProgramNumber ? 1 : -1);
+
             let instrumentOptions = instruments.map(instrument => {
+
                 return {
-                    instrument,
-                    voxophone: _voxophone,
+                    // Pass the child a component a function it can call to set its instrument as the selected one.
+                    selectInstrument: () => this._setInstrument(instrument),
                     imageSource: instrument.imageInfo.filePath
                 };
             });
             this.set('instrumentOptions', instrumentOptions);
-            this._initialized = true;
+            this._setInstrument(instruments[0]);
         });
+    }
+
+    _setInstrument(instrument) {
+
+        this._voxophone.setInstrument({ instrument })
+        this.set('selectedInstrumentImageSource', instrument.imageInfo.filePath);
     }
 }
 

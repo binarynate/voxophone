@@ -3,7 +3,7 @@
 
     <StackLayout class="selected-instrument">
         <StackLayout class="image-container">
-            <Image src="/Users/nathan.hill/repos/sonic.design/voxophone/scripts/files/acoustic-grand-piano.png"/>
+            <Image src="{{ selectedInstrumentImageSource }}"/>
         </StackLayout>
     </StackLayout>
 
