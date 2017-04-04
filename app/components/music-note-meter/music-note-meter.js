@@ -4,8 +4,10 @@ import ColorEditor from '../../utils/Color';
 import Component from 'nativescript-component';
 import delay from '../../utils/delay';
 
-const NUMBER_OF_RINGS = 5;
-const NOTE_CHANGE_TRANSITION_MILLISECONDS = 100;
+const NUMBER_OF_RINGS = 7;
+const NOTE_ON_TRANSITION_MILLISECONDS = 50;
+const NOTE_OFF_TRANSITION_MILLISECONDS = 200;
+const TOTAL_HUE_LIGHTNESS_CHANGE = 0.5;
 
 class MusicNoteMeter extends Component {
 
@@ -23,7 +25,7 @@ class MusicNoteMeter extends Component {
 
         let delayPerRing = transitionMilliseconds / this._rings.length;
 
-        return this._rings.slice(1).reduce((promise, ring) => {
+        return this._rings.reduce((promise, ring) => {
 
             return promise
             .then(() => this._setRingVisibility(ring, true))
@@ -33,7 +35,7 @@ class MusicNoteMeter extends Component {
 
     _noteOff(transitionMilliseconds) {
 
-        let reversedRings = [ ...this._rings.slice(1) ].reverse();
+        let reversedRings = [ ...this._rings ].reverse();
         let delayPerRing = transitionMilliseconds / this._rings.length;
 
         return reversedRings.reduce((promise, ring) => {
@@ -55,7 +57,7 @@ class MusicNoteMeter extends Component {
             console.log('going to invoke blink');
             this._visible = !this._visible;
 
-            return this._visible ? this._noteOn(NOTE_CHANGE_TRANSITION_MILLISECONDS) : this._noteOff(NOTE_CHANGE_TRANSITION_MILLISECONDS);
+            return this._visible ? this._noteOn(NOTE_ON_TRANSITION_MILLISECONDS) : this._noteOff(NOTE_OFF_TRANSITION_MILLISECONDS);
         })
         .then(() => {
             console.log('invoking blink');
@@ -176,8 +178,10 @@ class MusicNoteMeter extends Component {
 
     _getColorForRingIndex(ringIndex) {
 
+        let lightnessStepSize = TOTAL_HUE_LIGHTNESS_CHANGE / NUMBER_OF_RINGS;
+
         let rootColor = '#ff871e';
-        let { r, g, b } = ColorEditor(rootColor).darken(ringIndex * 0.1).rgb().object();
+        let { r, g, b } = ColorEditor(rootColor).darken(ringIndex * lightnessStepSize).rgb().object();
         return new Color(255, r, g, b);
     }
 }
