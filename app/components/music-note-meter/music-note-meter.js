@@ -4,10 +4,11 @@ import ColorEditor from '../../utils/Color';
 import Component from 'nativescript-component';
 import delay from '../../utils/delay';
 
-const NUMBER_OF_RINGS = 7;
-const NOTE_ON_TRANSITION_MILLISECONDS = 50;
+const NUMBER_OF_RINGS = 6;
+const NOTE_ON_TRANSITION_MILLISECONDS = 40;
 const NOTE_OFF_TRANSITION_MILLISECONDS = 200;
 const TOTAL_HUE_LIGHTNESS_CHANGE = 0.5;
+const RANDOM_COLORS_ENABLED = false;
 
 class MusicNoteMeter extends Component {
 
@@ -16,14 +17,13 @@ class MusicNoteMeter extends Component {
         return this._buildMusicNoteMeterRings()
         .then(rings => {
             this._rings = rings;
-            return this._blink();
-            // this._noteOff();
+            this._noteOff();
         });
     }
 
-    _noteOn(transitionMilliseconds) {
+    _noteOn() {
 
-        let delayPerRing = transitionMilliseconds / this._rings.length;
+        let delayPerRing = NOTE_ON_TRANSITION_MILLISECONDS / this._rings.length;
 
         return this._rings.reduce((promise, ring) => {
 
@@ -33,10 +33,10 @@ class MusicNoteMeter extends Component {
         }, Promise.resolve());
     }
 
-    _noteOff(transitionMilliseconds) {
+    _noteOff() {
 
         let reversedRings = [ ...this._rings ].reverse();
-        let delayPerRing = transitionMilliseconds / this._rings.length;
+        let delayPerRing = NOTE_OFF_TRANSITION_MILLISECONDS / this._rings.length;
 
         return reversedRings.reduce((promise, ring) => {
 
@@ -51,21 +51,21 @@ class MusicNoteMeter extends Component {
         ring.backgroundColor = isVisible ? this._getColorForRing(ring) : this.view.page.backgroundColor;
     }
 
+    /**
+    * A method that useful while developing changes to the music note meter's asthetics.
+    */
     _blink() {
         return delay(1000)
         .then(() => {
-            console.log('going to invoke blink');
             this._visible = !this._visible;
-
-            return this._visible ? this._noteOn(NOTE_ON_TRANSITION_MILLISECONDS) : this._noteOff(NOTE_OFF_TRANSITION_MILLISECONDS);
+            return this._visible ? this._noteOn() : this._noteOff();
         })
-        .then(() => {
-            console.log('invoking blink');
-            return this._blink();
-        });
+        .then(() => this._blink());
     }
 
     /**
+    * Creates and hooks up the ring-shaped views arranged in concentric circles that are used in the UI.
+    *
     * @returns {Promise.<Array.<View>>} - Array where each item is a View that is a ring in the music note meter's UI.
     *                                     The rings go from the center to the circumference as the index increases.
     */
@@ -117,8 +117,6 @@ class MusicNoteMeter extends Component {
         let ring = new FlexboxLayout();
         ring.height = ring.width = radius * 2;
         ring.borderRadius = radius;
-        let color = this._getRandomColor();
-        ring.backgroundColor = new Color(color);
         ring.alignItems = AlignItems.CENTER;
         ring.justifyContent = JustifyContent.CENTER;
         FlexboxLayout.setFlexGrow(ring, 0);
@@ -149,7 +147,8 @@ class MusicNoteMeter extends Component {
     _getRandomColor() {
 
         let num = Math.floor(Math.random() * 0xFFFFFF);
-        return '#' + num.toString(16);
+        let hex = num.toString(16).padStart(6, '0');
+        return '#' + hex;
     }
 
     _linkRingsTogether(rings) {
@@ -179,8 +178,8 @@ class MusicNoteMeter extends Component {
     _getColorForRingIndex(ringIndex) {
 
         let lightnessStepSize = TOTAL_HUE_LIGHTNESS_CHANGE / NUMBER_OF_RINGS;
+        let rootColor = RANDOM_COLORS_ENABLED ? this._getRandomColor() : '#ff871e';
 
-        let rootColor = '#ff871e';
         let { r, g, b } = ColorEditor(rootColor).darken(ringIndex * lightnessStepSize).rgb().object();
         return new Color(255, r, g, b);
     }
