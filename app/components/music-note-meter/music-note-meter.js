@@ -8,13 +8,71 @@ const NUMBER_OF_RINGS = 4;
 
 class MusicNoteMeter extends Component {
 
-
     init() {
 
-        return this._buildMusicNoteMeterInterface();
+        return this._buildMusicNoteMeterRings()
+        .then(rings => {
+
+            this._rings = rings;
+            console.log('invoking blink the first time');
+            return this._blink();
+        });
     }
 
-    _buildMusicNoteMeterInterface() {
+    _noteOn(milliseconds) {
+
+        return this._rings.slice(1).reduce((promise, ring) => {
+
+            let index = this._rings.indexOf(ring);
+            console.log(`Turning ring ${index} on`);
+
+            return promise
+            .then(() => this._setRingVisibility(ring, true))
+            .then(() => delay(milliseconds));
+        }, Promise.resolve());
+    }
+
+    _noteOff(milliseconds) {
+
+        let reversedRings = [ ...this._rings.slice(1) ].reverse();
+
+        return reversedRings.reduce((promise, ring) => {
+
+            let index = this._rings.indexOf(ring);
+            console.log(`Turning ring ${index} off`);
+
+            return promise
+            .then(() => this._setRingVisibility(ring, false))
+            .then(() => delay(milliseconds));
+        }, Promise.resolve());
+    }
+
+    _setRingVisibility(ring, isVisible) {
+
+        ring.backgroundColor = isVisible ? this._getColorForRing(ring) : this.view.page.backgroundColor;
+    }
+
+    _blink() {
+        return delay(1000)
+        .then(() => {
+            console.log('going to invoke blink');
+            this._visible = !this._visible;
+
+            let milliseconds = 100;
+
+            return this._visible ? this._noteOn(milliseconds) : this._noteOff(milliseconds);
+        })
+        .then(() => {
+            console.log('invoking blink');
+            return this._blink();
+        });
+    }
+
+    /**
+    * @returns {Promise.<Array.<View>>} - Array where each item is a View that is a ring in the music note meter's UI.
+    *                                     The rings go from the center to the circumference as the index increases.
+    */
+    _buildMusicNoteMeterRings() {
 
         return this._getOuterRing()
         .then(outerRing => {
@@ -34,6 +92,8 @@ class MusicNoteMeter extends Component {
             rings[0].addChild(center);
 
             this._setRingColors(rings);
+
+            return rings;
         })
         .catch(error => {
             console.log(`An error occurred during ring creation. ${error.message}: ${error.stack}`);
@@ -108,13 +168,22 @@ class MusicNoteMeter extends Component {
 
     _setRingColors(rings) {
 
-        let rootColor = '#ff871e';
-
         rings.forEach((ring, index) => {
-
-            let { r, g, b } = ColorEditor(rootColor).lighten(index * 0.2).rgb().object();
-            ring.backgroundColor = new Color(255, r, g, b);
+            ring.backgroundColor = this._getColorForRingIndex(index);
         });
+    }
+
+    _getColorForRing(ring) {
+
+        let ringIndex = this._rings.indexOf(ring);
+        return this._getColorForRingIndex(ringIndex);
+    }
+
+    _getColorForRingIndex(ringIndex) {
+
+        let rootColor = '#ff871e';
+        let { r, g, b } = ColorEditor(rootColor).lighten(ringIndex * 0.2).rgb().object();
+        return new Color(255, r, g, b);
     }
 }
 
