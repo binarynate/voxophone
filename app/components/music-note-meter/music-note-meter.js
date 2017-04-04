@@ -4,7 +4,8 @@ import ColorEditor from '../../utils/Color';
 import Component from 'nativescript-component';
 import delay from '../../utils/delay';
 
-const NUMBER_OF_RINGS = 4;
+const NUMBER_OF_RINGS = 5;
+const NOTE_CHANGE_TRANSITION_MILLISECONDS = 100;
 
 class MusicNoteMeter extends Component {
 
@@ -12,38 +13,34 @@ class MusicNoteMeter extends Component {
 
         return this._buildMusicNoteMeterRings()
         .then(rings => {
-
             this._rings = rings;
-            console.log('invoking blink the first time');
             return this._blink();
+            // this._noteOff();
         });
     }
 
-    _noteOn(milliseconds) {
+    _noteOn(transitionMilliseconds) {
+
+        let delayPerRing = transitionMilliseconds / this._rings.length;
 
         return this._rings.slice(1).reduce((promise, ring) => {
 
-            let index = this._rings.indexOf(ring);
-            console.log(`Turning ring ${index} on`);
-
             return promise
             .then(() => this._setRingVisibility(ring, true))
-            .then(() => delay(milliseconds));
+            .then(() => delay(delayPerRing));
         }, Promise.resolve());
     }
 
-    _noteOff(milliseconds) {
+    _noteOff(transitionMilliseconds) {
 
         let reversedRings = [ ...this._rings.slice(1) ].reverse();
+        let delayPerRing = transitionMilliseconds / this._rings.length;
 
         return reversedRings.reduce((promise, ring) => {
 
-            let index = this._rings.indexOf(ring);
-            console.log(`Turning ring ${index} off`);
-
             return promise
             .then(() => this._setRingVisibility(ring, false))
-            .then(() => delay(milliseconds));
+            .then(() => delay(delayPerRing));
         }, Promise.resolve());
     }
 
@@ -58,9 +55,7 @@ class MusicNoteMeter extends Component {
             console.log('going to invoke blink');
             this._visible = !this._visible;
 
-            let milliseconds = 100;
-
-            return this._visible ? this._noteOn(milliseconds) : this._noteOff(milliseconds);
+            return this._visible ? this._noteOn(NOTE_CHANGE_TRANSITION_MILLISECONDS) : this._noteOff(NOTE_CHANGE_TRANSITION_MILLISECONDS);
         })
         .then(() => {
             console.log('invoking blink');
@@ -182,7 +177,7 @@ class MusicNoteMeter extends Component {
     _getColorForRingIndex(ringIndex) {
 
         let rootColor = '#ff871e';
-        let { r, g, b } = ColorEditor(rootColor).lighten(ringIndex * 0.2).rgb().object();
+        let { r, g, b } = ColorEditor(rootColor).darken(ringIndex * 0.1).rgb().object();
         return new Color(255, r, g, b);
     }
 }
