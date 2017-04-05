@@ -1,3 +1,4 @@
+import { validate } from 'parameter-validator';
 import { FlexboxLayout, AlignItems, JustifyContent } from 'ui/layouts/flexbox-layout';
 import { Color } from 'color';
 import ColorEditor from '../../utils/Color';
@@ -14,11 +15,23 @@ class MusicNoteMeter extends Component {
 
     init() {
 
+        let dependencies = this.get('dependencies');
+
+        validate(dependencies, [ 'voxophone' ], this, { addPrefix: '_' });
+        console.log('binding the music note listener');
+        this._voxophone.addMusicNoteListener(this._handleMusicNoteEvent.bind(this));
+        console.log('bound the music note listener');
+
         return this._buildMusicNoteMeterRings()
         .then(rings => {
             this._rings = rings;
             this._noteOff();
         });
+    }
+
+    _handleMusicNoteEvent(event) {
+
+        console.log('RECEIVED A MUSIC NOTE EVENT: ' + JSON.stringify(event, null, 4));
     }
 
     _noteOn() {
