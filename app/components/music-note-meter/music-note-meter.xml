@@ -1,7 +1,7 @@
 <FlexboxLayout loaded="onLoaded" class="music-note-meter">
 
     <FlexboxLayout id="meter-center">
-        <Label text="C♯" />
+        <Label text="{{ note }}" />
     </FlexboxLayout>
 
 </FlexboxLayout>

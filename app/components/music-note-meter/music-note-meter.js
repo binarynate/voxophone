@@ -22,6 +22,7 @@ class MusicNoteMeter extends Component {
         console.log('binding the music note listener');
         this._voxophone.addMusicNoteListener(this._handleMusicNoteEvent.bind(this));
         console.log('bound the music note listener');
+        this.set('note', '');
 
         return this._buildMusicNoteMeterRings()
         .then(rings => {
@@ -34,14 +35,14 @@ class MusicNoteMeter extends Component {
 
         if (event.type === MusicNoteEventType.NOTE_ON) {
 
-            this._noteOn();
+            this._noteOn(event.note);
         } else {
             this._noteOff();
         }
 
     }
 
-    _noteOn() {
+    _noteOn(note) {
 
         let delayPerRing = NOTE_ON_TRANSITION_MILLISECONDS / this._rings.length;
 
@@ -50,7 +51,8 @@ class MusicNoteMeter extends Component {
             return promise
             .then(() => this._setRingVisibility(ring, true))
             .then(() => delay(delayPerRing));
-        }, Promise.resolve());
+        }, Promise.resolve())
+        .then(() => this.set('note', note));
     }
 
     _noteOff() {
