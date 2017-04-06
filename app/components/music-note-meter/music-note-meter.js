@@ -6,11 +6,11 @@ import Component from 'nativescript-component';
 import { MusicNoteEventType } from 'nativescript-voxophone-engine';
 import delay from '../../utils/delay';
 
-const NUMBER_OF_RINGS = 6;
-const NOTE_ON_TRANSITION_MILLISECONDS = 40;
-const NOTE_OFF_TRANSITION_MILLISECONDS = 200;
+const NUMBER_OF_RINGS = 8;
+const NOTE_ON_TRANSITION_MILLISECONDS = 5;
+const NOTE_OFF_TRANSITION_MILLISECONDS = 100;
 const TOTAL_HUE_LIGHTNESS_CHANGE = 0.5;
-const RANDOM_COLORS_ENABLED = false;
+const RANDOM_COLORS_ENABLED = true;
 
 class MusicNoteMeter extends Component {
 
@@ -199,9 +199,12 @@ class MusicNoteMeter extends Component {
 
     _getColorForRingIndex(ringIndex) {
 
-        let lightnessStepSize = TOTAL_HUE_LIGHTNESS_CHANGE / NUMBER_OF_RINGS;
-        let rootColor = RANDOM_COLORS_ENABLED ? this._getRandomColor() : '#ff871e';
+        if (RANDOM_COLORS_ENABLED) {
+            return this._getRandomColor();
+        }
 
+        let lightnessStepSize = TOTAL_HUE_LIGHTNESS_CHANGE / NUMBER_OF_RINGS;
+        let rootColor = '#ff871e';
         let { r, g, b } = ColorEditor(rootColor).darken(ringIndex * lightnessStepSize).rgb().object();
         return new Color(255, r, g, b);
     }
