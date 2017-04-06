@@ -51,8 +51,7 @@ class MusicNoteMeter extends Component {
             return promise
             .then(() => this._setRingVisibility(ring, true))
             .then(() => delay(delayPerRing));
-        }, Promise.resolve())
-        .then(() => this.set('note', note));
+        }, Promise.resolve().then(() => this.set('note', note)));
     }
 
     _noteOff() {
