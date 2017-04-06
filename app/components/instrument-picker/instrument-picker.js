@@ -11,7 +11,7 @@ class InstrumentPicker extends Component {
         return this._instrumentManager.getInstruments()
         .then(instruments => {
 
-            instruments.sort((instrument1, instrument2) => instrument1.soundBankProgramNumber > instrument2.soundBankProgramNumber ? 1 : -1);
+            instruments.sort((instrument1, instrument2) => instrument1.order > instrument2.order ? 1 : -1);
 
             let instrumentOptions = instruments.map(instrument => {
 

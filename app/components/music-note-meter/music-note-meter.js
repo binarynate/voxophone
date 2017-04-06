@@ -7,7 +7,7 @@ import { MusicNoteEventType } from 'nativescript-voxophone-engine';
 import delay from '../../utils/delay';
 
 const NUMBER_OF_RINGS = 8;
-const NOTE_ON_TRANSITION_MILLISECONDS = 5;
+const NOTE_ON_TRANSITION_MILLISECONDS = 40;
 const NOTE_OFF_TRANSITION_MILLISECONDS = 100;
 const TOTAL_HUE_LIGHTNESS_CHANGE = 0.5;
 const RANDOM_COLORS_ENABLED = true;
