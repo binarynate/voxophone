@@ -1,4 +1,4 @@
-import { validate } from 'parameter-validator';
+import { setOrientation } from 'nativescript-orientation';
 import Component from 'nativescript-component';
 
 class PerformanceView extends Component {
@@ -12,9 +12,7 @@ class PerformanceView extends Component {
 
     init() {
 
-        let dependencies = this.get('dependencies');
-        validate(dependencies, [ 'logger' ], this, { addPrefix: '_' });
-        this._initialized = true;
+        setOrientation('portrait', false);
     }
 }
 
