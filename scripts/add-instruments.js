@@ -9,7 +9,7 @@ const storageBasePath = __dirname + '/../app/data';
 let defaultSoundBank = {
     name: 'GeneralUser GS MuseScore v1.442.sf2'
 };
-defaultSoundBank.filePath = path.join(__dirname, 'files', defaultSoundBank.name)
+defaultSoundBank.filePath = path.join(__dirname, 'files', defaultSoundBank.name);
 
 let instruments = [
     {
@@ -20,6 +20,13 @@ let instruments = [
         }
     },
     {
+        name: 'Music Box',
+        soundBankProgramNumber: 10,
+        imageInfo: {
+            name: 'music-box.jpg'
+        }
+    },
+    {
         name: 'Vibraphone',
         soundBankProgramNumber: 11,
         imageInfo: {
@@ -27,10 +34,73 @@ let instruments = [
         }
     },
     {
-        name: 'Alto Sax',
-        soundBankProgramNumber: 65,
+        name: 'Marimba',
+        soundBankProgramNumber: 12,
+        imageInfo: {
+            name: 'marimba.jpg'
+        }
+    },
+    {
+        name: 'Drawbar Organ',
+        soundBankProgramNumber: 16,
+        imageInfo: {
+            name: 'drawbar-organ.png'
+        }
+    },
+    {
+        name: 'Acoustic Guitar (nylon)',
+        soundBankProgramNumber: 24,
+        imageInfo: {
+            name: 'nylon-guitar.png'
+        }
+    },
+    {
+        name: 'Violin',
+        soundBankProgramNumber: 40,
+        imageInfo: {
+            name: 'violin.png'
+        }
+    },
+    {
+        name: 'Orchestral Harp',
+        soundBankProgramNumber: 46,
+        imageInfo: {
+            name: 'orchestral-harp.jpg'
+        }
+    },
+    {
+        name: 'Trombone',
+        soundBankProgramNumber: 57,
+        imageInfo: {
+            name: 'trombone.jpg'
+        }
+    },
+    {
+        name: 'Muted Trumpet',
+        soundBankProgramNumber: 59,
+        imageInfo: {
+            name: 'trumpet.jpg'
+        }
+    },
+    {
+        name: 'Soprano Sax',
+        soundBankProgramNumber: 66,
         imageInfo: {
             name: 'alto-sax.jpg'
+        }
+    },
+    {
+        name: 'Flute',
+        soundBankProgramNumber: 73,
+        imageInfo: {
+            name: 'flute.png'
+        }
+    },
+    {
+        name: 'FX 1 (rain)',
+        soundBankProgramNumber: 96,
+        imageInfo: {
+            name: 'swirl.jpg'
         }
     }
 ];
