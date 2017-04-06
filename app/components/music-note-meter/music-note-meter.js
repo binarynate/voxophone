@@ -3,6 +3,7 @@ import { FlexboxLayout, AlignItems, JustifyContent } from 'ui/layouts/flexbox-la
 import { Color } from 'color';
 import ColorEditor from '../../utils/Color';
 import Component from 'nativescript-component';
+import { MusicNoteEventType } from 'nativescript-voxophone-engine';
 import delay from '../../utils/delay';
 
 const NUMBER_OF_RINGS = 6;
@@ -31,7 +32,13 @@ class MusicNoteMeter extends Component {
 
     _handleMusicNoteEvent(event) {
 
-        console.log('RECEIVED A MUSIC NOTE EVENT: ' + JSON.stringify(event, null, 4));
+        if (event.type === MusicNoteEventType.NOTE_ON) {
+
+            this._noteOn();
+        } else {
+            this._noteOff();
+        }
+
     }
 
     _noteOn() {
