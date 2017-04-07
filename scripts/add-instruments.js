@@ -1,3 +1,7 @@
+/**
+* @file - Script which initialize's the /app/data directory, which is used by
+*         the storage classes to implement a pseudo-database for available instruments.
+*/
 import path from 'path';
 import logger from 'winston';
 import InstrumentManager from '../app/models/InstrumentManager';
@@ -72,6 +76,7 @@ let instruments = [
         name: 'Soprano Sax',
         soundBankProgramNumber: 66,
         imageInfo: {
+            // Hopefully nobody notices the sound patch is a soprano sax.
             name: 'alto-sax.jpg'
         }
     },

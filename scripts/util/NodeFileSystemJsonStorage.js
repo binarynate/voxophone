@@ -6,7 +6,8 @@ import { validate } from 'parameter-validator';
 import ninvoke from './ninvoke';
 
 /**
-* Implements database-like, file system-based storage for JSON objects.
+* Implements database-like, file system-based storage for JSON objects using
+* Node's file system implementation.
 */
 export default class NodeFileSystemJsonStorage {
 
@@ -16,7 +17,10 @@ export default class NodeFileSystemJsonStorage {
     }
 
     /**
-    * @returns Promise.<Object> - The inserted entity
+    * Saves the given entity to disk.
+    *
+    * @param   {Object}
+    * @returns {Promise.<Object>} - The inserted entity
     */
     insert(entity) {
 

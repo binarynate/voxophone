@@ -56,5 +56,4 @@ export default class NodeFileInfoStorage extends NodeFileSystemJsonStorage {
         readStream.pipe(writeStream);
         return promise;
     }
-
 }

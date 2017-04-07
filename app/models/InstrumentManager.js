@@ -1,5 +1,27 @@
 import { validate, validateAsync } from 'parameter-validator';
 
+/**
+* @interface Instrument
+*
+* @property {string}   id                     - guid
+* @property {string}   name                   - e.g. 'Acoustic Grand Piano'
+* @property {FileInfo} soundBankInfo
+* @property {int}      soundBankProgramNumber
+* @property {FileInfo} imageInfo
+* @param    {int}      order                  - Determines the order in which instruments are displayed
+*/
+
+/**
+* @interface FileInfo
+*
+* @property {string} id
+* @property {string} name     - file name, with extension
+* @property {string} filePath - Absolute path to the file on disk
+*/
+
+/**
+* Provides the instruments which are available for selection.
+*/
 export default class InstrumentManager {
 
     constructor(options) {
@@ -12,6 +34,8 @@ export default class InstrumentManager {
     }
 
     /**
+    * Provides the available instruments.
+    *
     * @returns {Promise.<Array.<Instrument>>}
     */
     getInstruments() {
@@ -44,7 +68,13 @@ export default class InstrumentManager {
         });
     }
 
-
+    /**
+    * Saves the given instruments.
+    *
+    * @param   {Object}             options
+    * @param   {Array.<Instrument>} options.instruments
+    * @returns {Promise}
+    */
     saveInstruments(options) {
 
         return validateAsync(options, [ 'instruments' ])

@@ -2,7 +2,8 @@ import { validate } from 'parameter-validator';
 import { Folder, File } from 'file-system';
 
 /**
-* Implements database-like, file system-based storage for JSON objects.
+* Implements database-like, file system-based storage for JSON objects using
+* the NativeScript runtime's file system implementation.
 */
 export default class FileSystemJsonStorage {
 

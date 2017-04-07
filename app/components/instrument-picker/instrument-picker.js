@@ -1,20 +1,25 @@
 import { validate } from 'parameter-validator';
 import Component from 'nativescript-component';
 
+/**
+* Displays the available instruments for selection and the currently selected instrument.
+*
+*/
 class InstrumentPicker extends Component {
 
     init() {
 
         let dependencies = this.get('dependencies');
-        validate(dependencies, [ 'logger', 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
+        validate(dependencies, [ 'voxophone', 'instrumentManager' ], this, { addPrefix: '_' });
 
         return this._instrumentManager.getInstruments()
         .then(instruments => {
 
+            // Sort by the instruments' `order` property.
             instruments.sort((instrument1, instrument2) => instrument1.order > instrument2.order ? 1 : -1);
 
+            // The context objects that will be bound to the nested `instrument` components.
             let instrumentOptions = instruments.map(instrument => {
-
                 return {
                     // Pass the child a component a function it can call to set its instrument as the selected one.
                     selectInstrument: () => this._setInstrument(instrument),

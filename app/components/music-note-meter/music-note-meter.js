@@ -12,19 +12,22 @@ const NOTE_OFF_TRANSITION_MILLISECONDS = 100;
 const TOTAL_HUE_LIGHTNESS_CHANGE = 0.5;
 const RANDOM_COLORS_ENABLED = true;
 
+/**
+* Illustrates the volume envelope of a note played using concentric circles and
+* displays the name of the note being played (e.g. "C#").
+*/
 class MusicNoteMeter extends Component {
 
     init() {
 
         let dependencies = this.get('dependencies');
 
-        validate(dependencies, [ 'voxophone' ], this, { addPrefix: '_' });
-        console.log('binding the music note listener');
+        validate(dependencies, [ 'voxophone', 'logger' ], this, { addPrefix: '_' });
+        // Subscribe to music note events from the voxophone engine.
         this._voxophone.addMusicNoteListener(this._handleMusicNoteEvent.bind(this));
-        console.log('bound the music note listener');
         this.set('note', '');
 
-        return this._buildMusicNoteMeterRings()
+        return this._createAndConfigureRings()
         .then(rings => {
             this._rings = rings;
             this._noteOff();
@@ -34,54 +37,55 @@ class MusicNoteMeter extends Component {
     _handleMusicNoteEvent(event) {
 
         if (event.type === MusicNoteEventType.NOTE_ON) {
-
             this._noteOn(event.note);
         } else {
             this._noteOff();
         }
-
     }
 
+    /**
+    * Illustrates that a given note has been played
+    *
+    * @param {string} note - e.g. 'C#'
+    */
     _noteOn(note) {
 
         let delayPerRing = NOTE_ON_TRANSITION_MILLISECONDS / this._rings.length;
+        let promisedDisplayUpdate = Promise.resolve().then(() => this.set('note', note));
 
+        // Sequentially render each ring, adding a delay between each to stretch it out to the desired time.
         return this._rings.reduce((promise, ring) => {
-
             return promise
             .then(() => this._setRingVisibility(ring, true))
             .then(() => delay(delayPerRing));
-        }, Promise.resolve().then(() => this.set('note', note)));
+        }, promisedDisplayUpdate);
     }
 
+    /**
+    * Updates the display when a note has stopped being played.
+    */
     _noteOff() {
 
         let reversedRings = [ ...this._rings ].reverse();
         let delayPerRing = NOTE_OFF_TRANSITION_MILLISECONDS / this._rings.length;
 
+        // Sequentially erase each ring, adding a delay between each to stretch it out to the desired time.
         return reversedRings.reduce((promise, ring) => {
-
             return promise
             .then(() => this._setRingVisibility(ring, false))
             .then(() => delay(delayPerRing));
         }, Promise.resolve());
     }
 
+    /**
+    * Draws or hides the given ring.
+    *
+    * @param {ui/View} ring
+    * @param {boolean} isVisible
+    */
     _setRingVisibility(ring, isVisible) {
 
         ring.backgroundColor = isVisible ? this._getColorForRing(ring) : this.view.page.backgroundColor;
-    }
-
-    /**
-    * A method that useful while developing changes to the music note meter's asthetics.
-    */
-    _blink() {
-        return delay(1000)
-        .then(() => {
-            this._visible = !this._visible;
-            return this._visible ? this._noteOn() : this._noteOff();
-        })
-        .then(() => this._blink());
     }
 
     /**
@@ -90,7 +94,7 @@ class MusicNoteMeter extends Component {
     * @returns {Promise.<Array.<View>>} - Array where each item is a View that is a ring in the music note meter's UI.
     *                                     The rings go from the center to the circumference as the index increases.
     */
-    _buildMusicNoteMeterRings() {
+    _createAndConfigureRings() {
 
         return this._getOuterRing()
         .then(outerRing => {
@@ -110,17 +114,21 @@ class MusicNoteMeter extends Component {
             rings[0].addChild(center);
 
             this._setRingColors(rings);
-
             return rings;
         })
-        .catch(error => {
-            console.log(`An error occurred during ring creation. ${error.message}: ${error.stack}`);
-        });
+        .catch(error => this._logger.error(`An error occurred during ring creation.`, { error }));
     }
 
-    _createRings(initialRing, numberOfRings, radiusStepSize) {
+    /**
+    * @param   {ui/View}        centerRing     - The initial, center ring on which the size of the other rings will be based.
+    * @param   {int}            numberOfRings  - Total number of rings to render
+    * @param   {int}            radiusStepSize - The distance in pixels between the border of a ring and the border of the ring
+    *                                            immediately outside of it.
+    * @returns {Array.<ui/View}
+    */
+    _createRings(centerRing, numberOfRings, radiusStepSize) {
 
-        let previousRing = initialRing,
+        let previousRing = centerRing,
             rings = [];
 
         for (let i = 0; i < numberOfRings; i++) {
@@ -145,6 +153,12 @@ class MusicNoteMeter extends Component {
         return ring;
     }
 
+    /**
+    * Gets a reference to the existing view which will serve as the outermost ring and
+    * then configures and returns it.
+    *
+    * @returns {Promise.<ui/View>}
+    */
     _getOuterRing() {
 
         return Promise.resolve()

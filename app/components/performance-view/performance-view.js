@@ -1,6 +1,9 @@
 import { setOrientation } from 'nativescript-orientation';
 import Component from 'nativescript-component';
 
+/**
+* The main, top-level application component in which constituent components are nested.
+*/
 class PerformanceView extends Component {
 
     /**
@@ -11,7 +14,7 @@ class PerformanceView extends Component {
     }
 
     init() {
-
+        // Lock the orientation to portrait.
         setOrientation('portrait', false);
     }
 }
