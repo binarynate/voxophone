@@ -3,7 +3,7 @@
   "license": "MIT",
   "repository": "https://github.com/BinaryNate/voxophone",
   "nativescript": {
-    "id": "org.nativescript.voxophone",
+    "id": "design.sonic.voxophone",
     "tns-ios": {
       "version": "2.5.0"
     }
