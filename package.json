@@ -1,6 +1,6 @@
 {
   "description": "The Voxophone music app: you sing and it turns your voice into a musical instrument.",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "MIT",
   "repository": "https://github.com/BinaryNate/voxophone",
   "nativescript": {
     "id": "org.nativescript.voxophone",
