@@ -1,5 +1,5 @@
 <p align="center">
-![logo](docs/logo.png)
+    <img alt="babel" src="https://github.com/BinaryNate/voxophone/blob/master/docs/logo.png?raw=true" width="400">
 </p>
 
 # Voxophone UI
