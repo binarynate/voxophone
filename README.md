@@ -1,3 +1,7 @@
+<p align="center">
+![logo](docs/logo.png)
+</p>
+
 # Voxophone UI
 
 Voxophone is a mobile app which turns your singing or humming into realistic instrument sounds, like a keyboard that you play with your voice instead of your fingers.
@@ -5,7 +9,7 @@ Voxophone is a mobile app which turns your singing or humming into realistic ins
 Voxophone is currently pending approval for the Apple App Store and will be coming soon to the Google Play store, too.
 
 
-![logo](docs/logo.png) ![demo](docs/demo.gif)
+![demo](docs/demo.gif)
 
 
 ## Code
