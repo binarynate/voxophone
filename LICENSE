@@ -1,0 +1,11 @@
+The source code for Voxophone app's user interface is provided here for informational purposes, to be a resource for people interested in NativeScript, how to use the nativescript-component module, or for people interested in learning programming.
+
+The following cases are permitted uses of the Voxophone UI source code:
+- Distributing the original source code for informational purposes with attribution to the original author.
+- Incorporating sections of the code into one's own, unrelated project without trying to clone or mimic the Voxophone app.
+
+The following cases are prohibited uses of the Voxophone UI source code, which violates this license:
+- Submitting a modified version of the code to the Apple App Store, Google Play Store, or any other app marketplaces with the intent to copy the Voxophone app's functionality.
+- Distributing the source code as one's own work, either modified or unmodified.
+
+This license does not entitle to the user to the source code for the Voxophone's proprietary audio engine, which is not included in this repository.
