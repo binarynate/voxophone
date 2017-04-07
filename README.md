@@ -1,16 +1,14 @@
 <p align="center">
-    <img alt="babel" src="https://github.com/BinaryNate/voxophone/blob/master/docs/logo.png?raw=true" width="400">
+    <img alt="logo" src="https://github.com/BinaryNate/voxophone/blob/master/docs/logo.png?raw=true" width="400">
 </p>
-
-# Voxophone UI
 
 Voxophone is a mobile app which turns your singing or humming into realistic instrument sounds, like a keyboard that you play with your voice instead of your fingers.
 
 Voxophone is currently pending approval for the Apple App Store and will be coming soon to the Google Play store, too.
 
-
-![demo](docs/demo.gif)
-
+<p align="center">
+    <img alt="demo" src="https://raw.githubusercontent.com/BinaryNate/voxophone/master/docs/demo.gif" width="375">
+</p>
 
 ## Code
 
