@@ -1,4 +1,4 @@
-import { setOrientation } from 'nativescript-orientation';
+import { setOrientation, getOrientation, disableRotation } from 'nativescript-orientation';
 import Component from 'nativescript-component';
 
 /**
@@ -15,7 +15,13 @@ class PerformanceView extends Component {
 
     init() {
         // Lock the orientation to portrait.
-        setOrientation('portrait', false);
+        let orientation = getOrientation();
+
+        if (orientation === 'portrait') {
+            disableRotation();
+        } else {
+            setOrientation('portrait', false);
+        }
     }
 }
 
