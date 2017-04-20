@@ -10,9 +10,21 @@ const MARGIN_MIN = 5;
 class Instructions extends Component {
 
     init() {
+
+        /** @todo: Subscribe to music note events. */
+
         let imagePath = `${__dirname}/img/instructions-phone-down.png`;
         this.set('imagePath', imagePath);
         this._animate();
+    }
+
+    onTap() {
+
+        let dependencies = this.get('dependencies');
+        this.navigate({
+            component: 'performance-view',
+            context: { dependencies }
+        });
     }
 
     _animate() {

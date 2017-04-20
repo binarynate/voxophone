@@ -1,4 +1,4 @@
-<Page navigatingTo="onNavigatingTo">
+<Page navigatingTo="onNavigatingTo" tap="onTap">
     <StackLayout id="instructions">
         <Image src="{{ imagePath }}"/>
     </StackLayout>
