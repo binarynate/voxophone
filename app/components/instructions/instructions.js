@@ -2,9 +2,10 @@ import Component from 'nativescript-component';
 import delay from '../../utils/delay';
 
 const MARGIN_STEP_SIZE = 1;
-const MARGIN_DELAY = 10;
-const MARGIN_MAX = 80;
-const MARGIN_MIN = 20;
+const MARGIN_MAX_DELAY = 150;
+const MARGIN_MIN_DELAY = 100;
+const MARGIN_MAX = 30;
+const MARGIN_MIN = 5;
 
 class Instructions extends Component {
 
@@ -30,7 +31,8 @@ class Instructions extends Component {
         }
         let newMargin = margin + MARGIN_STEP_SIZE;
         this._setMargin(newMargin);
-        return delay(MARGIN_DELAY).then(() => this._increaseMargin());
+        let marginDelay = this._getMarginDelay(newMargin);
+        return delay(marginDelay).then(() => this._increaseMargin());
     }
 
     _decreaseMargin() {
@@ -42,7 +44,8 @@ class Instructions extends Component {
         }
         let newMargin = margin - MARGIN_STEP_SIZE;
         this._setMargin(newMargin);
-        return delay(MARGIN_DELAY).then(() => this._decreaseMargin());
+        let marginDelay = this._getMarginDelay(newMargin);
+        return delay(marginDelay).then(() => this._decreaseMargin());
     }
 
     _getMargin() {
@@ -52,6 +55,18 @@ class Instructions extends Component {
 
     _setMargin(margin) {
         this._viewToResize.margin = new Array(4).fill(margin).join(' ');
+    }
+
+    _getMarginDelay(margin) {
+
+        let normalizedMargin = margin - MARGIN_MIN,
+            normalizedMarginRange = MARGIN_MAX - MARGIN_MIN;
+
+        let halfwayPoint = normalizedMarginRange / 2;
+        let delayPercentage = Math.abs(halfwayPoint - normalizedMargin) / halfwayPoint;
+        let delay = delayPercentage * MARGIN_MAX_DELAY;
+
+        return delay < MARGIN_MIN_DELAY ? MARGIN_MIN_DELAY : delay;
     }
 
     get _viewToResize() {
