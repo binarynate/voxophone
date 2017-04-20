@@ -37,7 +37,6 @@
     "color-string": "^1.5.2",
     "lodash": "^4.17.4",
     "nativescript-component": "^1.2.0",
-    "nativescript-orientation": "^1.6.1",
     "nativescript-theme-core": "~1.0.2",
     "nativescript-utilities": "^0.1.0",
     "nativescript-voxophone-engine": "file:///Users/nathan.hill/repos/sonic.design/nativescript-voxophone-engine",
