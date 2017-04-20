@@ -24,7 +24,7 @@ let dependencies = {
 };
 
 application.start({
-    moduleName: 'components/performance-view/performance-view',
+    moduleName: 'components/instructions/instructions',
     context: { dependencies }
 });
 

@@ -1,0 +1,5 @@
+<Page navigatingTo="onNavigatingTo">
+    <StackLayout>
+        <Image src="{{ imagePath }}"/>
+    </StackLayout>
+</Page>
