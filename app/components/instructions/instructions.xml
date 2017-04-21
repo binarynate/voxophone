@@ -1,5 +1,10 @@
 <Page navigatingTo="onNavigatingTo" tap="onTap">
-    <StackLayout id="instructions">
-        <Image src="{{ imagePath }}"/>
-    </StackLayout>
+    <FlexboxLayout class="instructions-container">
+        <StackLayout id="instructions">
+            <Image src="{{ instructionsImage }}"/>
+        </StackLayout>
+        <FlexboxLayout class="ok-button">
+            <Image src="{{ buttonImage }}"/>
+        </FlexboxLayout>
+    </FlexboxLayout>
 </Page>

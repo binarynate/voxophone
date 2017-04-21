@@ -13,8 +13,11 @@ class Instructions extends Component {
 
         /** @todo: Subscribe to music note events. */
 
-        let imagePath = `${__dirname}/img/instructions-phone-down.png`;
-        this.set('imagePath', imagePath);
+        let instructionsImage = `${__dirname}/img/instructions-phone-down.png`;
+        this.set('instructionsImage', instructionsImage);
+        let buttonImage = `${__dirname}/img/thumbs-up.png`;
+        this.set('buttonImage', buttonImage);
+
         this._animate();
     }
 
