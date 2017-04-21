@@ -1,4 +1,6 @@
 import Component from 'nativescript-component';
+import { validate } from 'parameter-validator';
+import { MusicNoteEventType } from 'nativescript-voxophone-engine';
 import delay from '../../utils/delay';
 
 const MARGIN_STEP_SIZE = 1;
@@ -11,22 +13,17 @@ class Instructions extends Component {
 
     init() {
 
-        /** @todo: Subscribe to music note events. */
-        let instructionsImage = `${__dirname}/img/instructions-phone-down.png`;
-        this.set('instructionsImage', instructionsImage);
-        let buttonImage = `${__dirname}/img/check-mark-button.png`;
-        this.set('buttonImage', buttonImage);
-
+        let dependencies = this.get('dependencies');
+        validate(dependencies, [ 'voxophone' ], this, { addPrefix: '_' });
+        // Listen for a music note event to dismiss the instructions screen.
+        this._voxophone.addMusicNoteListener(this._handleMusicNoteEvent.bind(this));
+        this._initImagePaths();
         this._animate();
     }
 
     onTap() {
 
-        let dependencies = this.get('dependencies');
-        this.navigate({
-            component: 'performance-view',
-            context: { dependencies }
-        });
+        this._dismissInstructions();
     }
 
     _animate() {
@@ -34,19 +31,6 @@ class Instructions extends Component {
         return this._increaseMargin()
         .then(() => this._decreaseMargin())
         .then(() => this._animate());
-    }
-
-    _increaseMargin() {
-
-        let margin = this._getMargin();
-
-        if (margin >= MARGIN_MAX) {
-            return Promise.resolve();
-        }
-        let newMargin = margin + MARGIN_STEP_SIZE;
-        this._setMargin(newMargin);
-        let marginDelay = this._getMarginDelay(newMargin);
-        return delay(marginDelay).then(() => this._increaseMargin());
     }
 
     _decreaseMargin() {
@@ -62,13 +46,18 @@ class Instructions extends Component {
         return delay(marginDelay).then(() => this._decreaseMargin());
     }
 
+    _dismissInstructions() {
+
+        let dependencies = this.get('dependencies');
+        this.navigate({
+            component: 'performance-view',
+            context: { dependencies }
+        });
+    }
+
     _getMargin() {
         let marginString = this._viewToResize.margin.split(' ')[0];
         return Number.parseInt(marginString);
-    }
-
-    _setMargin(margin) {
-        this._viewToResize.margin = new Array(4).fill(margin).join(' ');
     }
 
     _getMarginDelay(margin) {
@@ -81,6 +70,38 @@ class Instructions extends Component {
         let delay = delayPercentage * MARGIN_MAX_DELAY;
 
         return delay < MARGIN_MIN_DELAY ? MARGIN_MIN_DELAY : delay;
+    }
+
+    _handleMusicNoteEvent(event) {
+
+        if (event.type === MusicNoteEventType.NOTE_ON) {
+            this._dismissInstructions();
+        }
+    }
+
+    _increaseMargin() {
+
+        let margin = this._getMargin();
+
+        if (margin >= MARGIN_MAX) {
+            return Promise.resolve();
+        }
+        let newMargin = margin + MARGIN_STEP_SIZE;
+        this._setMargin(newMargin);
+        let marginDelay = this._getMarginDelay(newMargin);
+        return delay(marginDelay).then(() => this._increaseMargin());
+    }
+
+    _initImagePaths() {
+
+        let instructionsImage = `${__dirname}/img/instructions-phone-down.png`;
+        this.set('instructionsImage', instructionsImage);
+        let buttonImage = `${__dirname}/img/check-mark-button.png`;
+        this.set('buttonImage', buttonImage);
+    }
+
+    _setMargin(margin) {
+        this._viewToResize.margin = new Array(4).fill(margin).join(' ');
     }
 
     get _viewToResize() {
