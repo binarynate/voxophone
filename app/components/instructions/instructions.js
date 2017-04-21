@@ -1,3 +1,7 @@
+/* globals UIDevice */
+import { device } from 'tns-core-modules/platform';
+import utils from 'utils/utils';
+// import application from 'application';
 import Component from 'nativescript-component';
 import { validate } from 'parameter-validator';
 import { MusicNoteEventType } from 'nativescript-voxophone-engine';
@@ -15,6 +19,9 @@ class Instructions extends Component {
 
         let dependencies = this.get('dependencies');
         validate(dependencies, [ 'voxophone' ], this, { addPrefix: '_' });
+
+        // application.on(application.orientationChangedEvent, (...args) => alert('Orientation changed! Args: ' + args));
+
         // Listen for a music note event to dismiss the instructions screen.
         this._voxophone.addMusicNoteListener(this._handleMusicNoteEvent.bind(this));
         this._initImagePaths();
@@ -58,6 +65,27 @@ class Instructions extends Component {
         this._dismissed = true;
     }
 
+    /**
+    * A different instructions image is used depending on the device and orientation.
+    */
+    _getInstructionsImageFileName() {
+
+        // iPad's mic is at the top, so choose whether the instructions should point up or down based on orientation.
+        if (device.os.includes('iOS') && (device.deviceType === 'Tablet')) {
+
+            // Only portrait and upside-down orientations are enabled in Info.plist.
+            let isUpsideDown = this._isIosDeviceUpsideDown();
+            return isUpsideDown ? 'instructions-tablet-down.png' : 'instructions-tablet-up.png';
+        }
+        return device.deviceType === 'Phone' ? 'instructions-phone-down.png' : 'instructions-tablet.png';
+    }
+
+    _isIosDeviceUpsideDown() {
+
+        let orientation = utils.ios.getter(UIDevice, UIDevice.currentDevice).orientation;
+        return orientation === 2; // Value of the UIInterfaceOrientationPortraitUpsideDown enum.
+    }
+
     _getMargin() {
         let marginString = this._viewToResize.margin.split(' ')[0];
         return Number.parseInt(marginString);
@@ -99,7 +127,8 @@ class Instructions extends Component {
 
     _initImagePaths() {
 
-        let instructionsImage = `${__dirname}/img/instructions-phone-down.png`;
+        let instructionsFileName = this._getInstructionsImageFileName();
+        let instructionsImage = `${__dirname}/img/${instructionsFileName}`;
         this.set('instructionsImage', instructionsImage);
         let buttonImage = `${__dirname}/img/check-mark-button.png`;
         this.set('buttonImage', buttonImage);
