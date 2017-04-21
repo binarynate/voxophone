@@ -1,6 +1,7 @@
 <Page navigatingTo="onNavigatingTo"
       xmlns:i="components/instrument-picker"
-      xmlns:m="components/music-note-meter">
+      xmlns:m="components/music-note-meter"
+      actionBarHidden="true">
     <ActionBar>
       <NavigationButton visibility="collapsed"/>
     </ActionBar>
