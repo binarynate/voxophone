@@ -63,6 +63,9 @@ export default class InstrumentManager {
                     return instrumentsWithFileInfo;
                 }, []);
 
+                // Sort by the instruments' `order` property.
+                this._cachedInstruments.sort((instrument1, instrument2) => instrument1.order > instrument2.order ? 1 : -1);
+
                 return this._cachedInstruments;
             });
         });

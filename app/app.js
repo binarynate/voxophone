@@ -16,12 +16,16 @@ let instrumentManager = new InstrumentManager({
     instrumentStorage: new FileSystemJsonStorage({ logger, directoryPath: `${storageBasePath}/instruments` }),
     fileInfoStorage: new FileInfoStorage({ logger, directoryPath: `${storageBasePath}/fileInfo` })
 });
-
+let voxophone = new VoxophoneEngine();
 let dependencies = {
     logger,
-    voxophone: new VoxophoneEngine(),
+    voxophone,
     instrumentManager
 };
+
+// Go ahead and set the initial instrument voice.
+instrumentManager.getInstruments()
+.then(instruments => voxophone.setInstrument({ instrument: instruments[0] }));
 
 application.start({
     moduleName: 'components/instructions/instructions',

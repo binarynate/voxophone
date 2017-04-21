@@ -15,17 +15,12 @@ class InstrumentPicker extends Component {
         return this._instrumentManager.getInstruments()
         .then(instruments => {
 
-            // Sort by the instruments' `order` property.
-            instruments.sort((instrument1, instrument2) => instrument1.order > instrument2.order ? 1 : -1);
-
             // The context objects that will be bound to the nested `instrument` components.
-            let instrumentOptions = instruments.map(instrument => {
-                return {
-                    // Pass the child a component a function it can call to set its instrument as the selected one.
-                    selectInstrument: () => this._setInstrument(instrument),
-                    imageSource: instrument.imageInfo.filePath
-                };
-            });
+            let instrumentOptions = instruments.map(instrument => ({
+                // Pass the child a component a function it can call to set its instrument as the selected one.
+                selectInstrument: () => this._setInstrument(instrument),
+                imageSource: instrument.imageInfo.filePath
+            }));
             this.set('instrumentOptions', instrumentOptions);
             this._setInstrument(instruments[0]);
         });

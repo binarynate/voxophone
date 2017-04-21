@@ -48,11 +48,14 @@ class Instructions extends Component {
 
     _dismissInstructions() {
 
+        if (this._dismissed) return;
+
         let dependencies = this.get('dependencies');
         this.navigate({
             component: 'performance-view',
             context: { dependencies }
         });
+        this._dismissed = true;
     }
 
     _getMargin() {
@@ -75,7 +78,9 @@ class Instructions extends Component {
     _handleMusicNoteEvent(event) {
 
         if (event.type === MusicNoteEventType.NOTE_ON) {
-            this._dismissInstructions();
+            // Return a promise so that _dismissInstructions() is executed on
+            // NativeScript's UI thread instead of the plugin's background thread.
+            return Promise.resolve().then(() => this._dismissInstructions());
         }
     }
 
