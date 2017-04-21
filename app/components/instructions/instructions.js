@@ -1,7 +1,7 @@
 /* globals UIDevice */
 import { device } from 'tns-core-modules/platform';
 import utils from 'utils/utils';
-// import application from 'application';
+import application from 'application';
 import Component from 'nativescript-component';
 import { validate } from 'parameter-validator';
 import { MusicNoteEventType } from 'nativescript-voxophone-engine';
@@ -20,11 +20,13 @@ class Instructions extends Component {
         let dependencies = this.get('dependencies');
         validate(dependencies, [ 'voxophone' ], this, { addPrefix: '_' });
 
-        // application.on(application.orientationChangedEvent, (...args) => alert('Orientation changed! Args: ' + args));
-
+        this._initImagePaths();
+        // On iPad, update the instruction image if turned upside down.
+        if (this._isIpad()) {
+            application.on(application.orientationChangedEvent, () => this._initImagePaths());
+        }
         // Listen for a music note event to dismiss the instructions screen.
         this._voxophone.addMusicNoteListener(this._handleMusicNoteEvent.bind(this));
-        this._initImagePaths();
         this._animate();
     }
 
@@ -56,13 +58,12 @@ class Instructions extends Component {
     _dismissInstructions() {
 
         if (this._dismissed) return;
-
+        this._dismissed = true;
         let dependencies = this.get('dependencies');
         this.navigate({
             component: 'performance-view',
             context: { dependencies }
         });
-        this._dismissed = true;
     }
 
     /**
@@ -71,8 +72,7 @@ class Instructions extends Component {
     _getInstructionsImageFileName() {
 
         // iPad's mic is at the top, so choose whether the instructions should point up or down based on orientation.
-        if (device.os.includes('iOS') && (device.deviceType === 'Tablet')) {
-
+        if (this._isIpad()) {
             // Only portrait and upside-down orientations are enabled in Info.plist.
             let isUpsideDown = this._isIosDeviceUpsideDown();
             return isUpsideDown ? 'instructions-tablet-down.png' : 'instructions-tablet-up.png';
@@ -84,6 +84,10 @@ class Instructions extends Component {
 
         let orientation = utils.ios.getter(UIDevice, UIDevice.currentDevice).orientation;
         return orientation === 2; // Value of the UIInterfaceOrientationPortraitUpsideDown enum.
+    }
+
+    _isIpad() {
+        return device.os.includes('iOS') && (device.deviceType === 'Tablet');
     }
 
     _getMargin() {
