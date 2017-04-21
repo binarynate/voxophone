@@ -4,18 +4,17 @@ import delay from '../../utils/delay';
 const MARGIN_STEP_SIZE = 1;
 const MARGIN_MAX_DELAY = 150;
 const MARGIN_MIN_DELAY = 100;
-const MARGIN_MAX = 30;
-const MARGIN_MIN = 5;
+const MARGIN_MAX = 50;
+const MARGIN_MIN = 30;
 
 class Instructions extends Component {
 
     init() {
 
         /** @todo: Subscribe to music note events. */
-
         let instructionsImage = `${__dirname}/img/instructions-phone-down.png`;
         this.set('instructionsImage', instructionsImage);
-        let buttonImage = `${__dirname}/img/thumbs-up.png`;
+        let buttonImage = `${__dirname}/img/check-mark-button.png`;
         this.set('buttonImage', buttonImage);
 
         this._animate();
