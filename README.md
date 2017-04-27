@@ -4,7 +4,7 @@
 
 Voxophone is a mobile app which turns your singing or humming into realistic instrument sounds, like a keyboard that you play with your voice instead of your fingers.
 
-Voxophone is currently pending approval for the Apple App Store and will be coming soon to the Google Play store, too.
+Voxophone is [available for free from the Apple App Store](https://itunes.apple.com/us/app/voxophone/id1224464977?mt=8) and will be coming soon to the Google Play store, too.
 
 <p align="center">
     <img alt="demo" src="https://raw.githubusercontent.com/BinaryNate/voxophone/master/docs/demo.gif" width="375">
