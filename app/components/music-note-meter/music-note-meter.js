@@ -34,6 +34,10 @@ class MusicNoteMeter extends Component {
         });
     }
 
+    _getCurrentRingColors() {
+        return this._rings.map(ring => ring.backgroundColor);
+    }
+
     _handleMusicNoteEvent(event) {
 
         if (event.type === MusicNoteEventType.NOTE_ON) {
@@ -68,12 +72,20 @@ class MusicNoteMeter extends Component {
 
         let reversedRings = [ ...this._rings ].reverse();
         let delayPerRing = NOTE_OFF_TRANSITION_MILLISECONDS / this._rings.length;
+        let currentRingColors = this._getCurrentRingColors();
 
         // Sequentially erase each ring, adding a delay between each to stretch it out to the desired time.
         return reversedRings.reduce((promise, ring) => {
             return promise
-            .then(() => this._setRingVisibility(ring, false))
-            .then(() => delay(delayPerRing));
+            .then(() => {
+                // If the ring colors have changed since the initial _noteOff event, that means
+                // the _noteOn event for another note has been drawn, and we don't want to erase
+                // the new rings in that case
+                if (currentRingColors.includes(ring.backgroundColor)) {
+                    this._setRingVisibility(ring, false);
+                }
+                return delay(delayPerRing);
+            });
         }, Promise.resolve());
     }
 
